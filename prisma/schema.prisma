@@ -1,0 +1,390 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider     = "mysql"
+    url          = env("DATABASE_URL")
+    relationMode = "prisma"
+}
+
+enum Role {
+    user
+    admin
+}
+
+model User {
+    id String @id @map("user_id")
+
+    display_name    String
+    username        String  @unique
+    first_name      String?
+    last_name       String?
+    email           String  @unique
+    isEmailVerified Boolean @default(false)
+    password        String
+
+    image     String?
+    role      Role    @default(user)
+    bio       String? @db.Text
+    suspended Boolean @default(false)
+
+    sessions               Session[]
+    emailVerificationToken EmailVerificationToken[]
+    resetPasswordToken     ResetPasswordToken[]
+    supportTickets         SupportTicket[]
+
+    boards           Board[]
+    boardMemberships BoardMember[]
+    favoritedBoards  FavoritedBoard[]
+    taskComments     TaskComment[]
+    teams            Team[]
+    teamMemberships  TeamMember[]
+
+    Files File[]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model Session {
+    id String @id @map("session_id")
+
+    userId String
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    expiresAt DateTime
+
+    @@index([userId])
+}
+
+model EmailVerificationToken {
+    id String @id @default(cuid()) @map("email_verification_token_id")
+
+    token String @unique
+
+    userId String
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    sentAt    DateTime
+
+    @@index([userId])
+}
+
+model ResetPasswordToken {
+    id String @id @default(cuid()) @map("reset_password_token_id")
+
+    token String @unique
+
+    userId String
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([userId])
+}
+
+enum SupportTicketStatus {
+    open
+    closed
+    pending
+    resolved
+}
+
+model SupportTicket {
+    id String @id @default(cuid()) @map("ticket_id")
+
+    senderUsername String?
+    senderName     String?
+    senderEmail    String
+
+    subject String @db.Text
+    message String @db.Text
+
+    status        SupportTicketStatus @default(open)
+    statusMessage String?             @db.Text
+
+    userId String
+    User   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([userId])
+}
+
+enum BoardVisibility {
+    private
+    team
+    public
+}
+
+model Board {
+    id String @id @default(cuid()) @map("board_id")
+
+    title       String
+    visibility  BoardVisibility @default(private)
+    closed      Boolean         @default(false)
+    description String?         @db.Text
+    coverUrl    String?
+
+    tasks       Task[]
+    members     BoardMember[]
+    favoritedBy FavoritedBoard[]
+    invites     BoardInvite[]
+
+    ownerId String
+    owner   User   @relation(fields: [ownerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+    teamId String
+    team   Team   @relation(fields: [teamId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+    closedAt  DateTime?
+
+    @@index([ownerId], name: "board_ownerId")
+    @@index([teamId], name: "board_teamId")
+}
+
+model Team {
+    id String @id @default(cuid()) @map("team_id")
+
+    name String @unique
+
+    members TeamMember[]
+    boards  Board[]
+    invites TeamInvite[]
+
+    ownerId String
+    owner   User   @relation(fields: [ownerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([ownerId], name: "team_ownerId")
+}
+
+enum MemberRole {
+    member
+    observer
+    admin
+    owner
+}
+
+model BoardMember {
+    id String @id @default(cuid()) @map("board_member_id")
+
+    role    MemberRole    @default(member)
+    invites BoardInvite[]
+
+    userId String
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+    boardId String
+    board   Board  @relation(fields: [boardId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@unique([userId, boardId])
+    @@index([userId], name: "board_member_userId")
+    @@index([boardId], name: "board_member_boardId")
+}
+
+model TeamMember {
+    id String @id @default(cuid()) @map("team_member_id")
+
+    role    MemberRole   @default(member)
+    Tinvite TeamInvite[]
+
+    userId String
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+    teamId String
+    team   Team   @relation(fields: [teamId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@unique([userId, teamId])
+    @@index([userId], name: "team_member_userId")
+    @@index([teamId], name: "team_member_teamId")
+}
+
+model FavoritedBoard {
+    id String @id @default(cuid()) @map("favorited_board_id")
+
+    favorited Boolean @default(true)
+
+    userId String
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+    boardId String
+    board   Board  @relation(fields: [boardId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+    @@unique([userId, boardId])
+    @@index([userId], name: "favorited_board_userId")
+    @@index([boardId], name: "favorited_board_boardId")
+}
+
+model Task {
+    id String @id @default(cuid()) @map("task_id")
+
+    title       String
+    description String? @db.Text
+
+    labels   Label[]
+    priority TaskPriority[]
+    status   TaskStatus[]
+    comment  TaskComment[]
+
+    boardId String
+    board   Board  @relation(fields: [boardId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([boardId], name: "task_boardId")
+}
+
+model Label {
+    id String @id @default(cuid()) @map("label_id")
+
+    name  String
+    color String
+
+    tasks Task[]
+
+    @@unique([name, color])
+}
+
+model TaskPriority {
+    id String @id @default(cuid()) @map("priority_id")
+
+    text  String
+    color String
+
+    Task Task[]
+
+    @@unique([text, color])
+}
+
+enum StatusState {
+    todo
+    inProgress
+    done
+}
+
+model TaskStatus {
+    id String @id @default(cuid()) @map("status_id")
+
+    text  String
+    state StatusState @default(todo)
+
+    Task Task[]
+
+    @@unique([text, state])
+}
+
+model TaskComment {
+    id String @id @default(cuid()) @map("task_comment_id")
+
+    body     String
+    isEdited Boolean @default(false)
+
+    authorId String
+    author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+    taskId String
+    task   Task   @relation(fields: [taskId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([authorId], name: "comment_authorId")
+    @@index([taskId], name: "comment_taskId")
+}
+
+enum InvitePermission {
+    member
+    observer
+}
+
+model BoardInvite {
+    id String @id @default(cuid()) @map("board_invite_id")
+
+    url        String           @db.Text
+    permission InvitePermission @default(member)
+
+    boardId String
+    board   Board  @relation(fields: [boardId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+    creatorId String
+    creator   BoardMember @relation(fields: [creatorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    expiresAt DateTime
+
+    @@index([boardId], name: "invite_boardId")
+    @@index([creatorId], name: "invite_creatorId")
+}
+
+model TeamInvite {
+    id String @id @default(cuid()) @map("team_invite_id")
+
+    url        String           @db.Text
+    permission InvitePermission @default(member)
+
+    teamId String
+    team   Team   @relation(fields: [teamId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+    creatorId String
+    creator   TeamMember @relation(fields: [creatorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    expiresAt DateTime
+
+    @@index([teamId], name: "team_invite_teamId")
+    @@index([creatorId], name: "team_invite_creatorId")
+}
+
+enum UploadStatus {
+    pending
+    processing
+    failed
+    completed
+}
+
+model File {
+    id String @id @default(cuid()) @map("file_id")
+
+    name         String
+    uploadStatus UploadStatus @default(pending)
+    url          String
+    key          String
+
+    userId String
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([userId], name: "file_userId")
+}
+
+model Post {
+    id String @id @default(cuid()) @map("post_id")
+
+    name String
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}

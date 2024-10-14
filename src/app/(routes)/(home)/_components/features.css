@@ -1,0 +1,26 @@
+:root {
+  --performance-metric-image: url(/assets/home/performance-metric.jpg);
+}
+.dark {
+  --performance-metric-image: url(/assets/home/performance-metric.dark.jpg);
+}
+
+.performance-feature {
+  background-image: linear-gradient(
+      to top,
+      transparent,
+      hsl(var(--background)) 25%
+    ),
+    var(--performance-metric-image);
+}
+
+@media screen and (min-width: 1024px) {
+  .performance-feature {
+    background-image: linear-gradient(
+        to top,
+        transparent,
+        hsl(var(--background)) 50%
+      ),
+      var(--performance-metric-image);
+  }
+}
