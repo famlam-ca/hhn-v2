@@ -19,7 +19,7 @@ interface PasswordWasResetProps {
   }
 }
 
-const baseUrl = "https://www.famlam.ca"
+const baseUrl = "https://app.famlam.ca"
 
 export const PasswordWasResetEmail = ({
   data: { username, updatedDate },
@@ -74,7 +74,8 @@ export const PasswordWasResetEmail = ({
               password,{" "}
               <Link
                 href="https://support.google.com/googleone/answer/12262531?hl=en"
-                style={link}>
+                style={link}
+              >
                 click here.
               </Link>
             </Text>
@@ -113,7 +114,8 @@ export const PasswordWasResetEmail = ({
             <Row>
               <Column
                 align="right"
-                style={{ width: "50%", paddingRight: "8px" }}>
+                style={{ width: "50%", paddingRight: "8px" }}
+              >
                 <Link href="https://www.famlam.ca">
                   <Img
                     src={`${baseUrl}/logo/logo512-dark-s.png`}
@@ -166,7 +168,8 @@ export const PasswordWasResetEmail = ({
                 paddingTop: "10px",
                 paddingBottom: "30px",
               }}
-              data-darkreader-inline-color="">
+              data-darkreader-inline-color=""
+            >
               © {year} HHN™, All Rights Reserved <br />
             </Text>
           </Section>

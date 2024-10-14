@@ -2,7 +2,6 @@
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Loader2, Plus, Users } from "lucide-react"
-import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { z } from "zod"
@@ -39,7 +38,6 @@ import { trpc } from "@/trpc/react"
 import { CreateBoardSchema } from "@/validators/kanban"
 
 export const CreateBoardModal = () => {
-  const router = useRouter()
   const { isOpen, onClose, onOpen, type } = useModal()
 
   const isModalOpen = isOpen && type === "create-board"
@@ -59,8 +57,7 @@ export const CreateBoardModal = () => {
 
   function onSubmit(values: z.infer<typeof CreateBoardSchema>) {
     createBoard.mutate(values, {
-      onSuccess: (boardId) => {
-        router.push(`/kanban/${boardId}`)
+      onSuccess: () => {
         onClose()
       },
       onError: (error) => {

@@ -117,7 +117,7 @@ export const ChangeBoardCoverModal = () => {
           <DialogDescription aria-hidden className="hidden" />
         </DialogHeader>
 
-        {!initCoverUrl ? (
+        {updateBoardCover.isPending ? (
           <CoverSkeleton />
         ) : (
           <div className="group relative h-96">

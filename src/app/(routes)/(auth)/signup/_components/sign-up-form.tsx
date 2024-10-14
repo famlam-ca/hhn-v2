@@ -87,7 +87,7 @@ export const SignUpForm = () => {
   return (
     <div className="relative flex h-full">
       <div className="flex flex-1 flex-col items-center justify-center">
-        <div className="mx-auto mb-10 flex items-center justify-center">
+        <div className="mb-10 flex items-center justify-center gap-2">
           <Icons.icon noAmimation />
 
           <h1 className="text-center text-3xl font-bold leading-9 tracking-tight md:text-4xl lg:text-5xl">

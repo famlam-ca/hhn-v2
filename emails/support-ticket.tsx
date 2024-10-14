@@ -13,7 +13,7 @@ import {
   Text,
 } from "@react-email/components"
 
-const baseUrl = "https://www.famlam.ca"
+const baseUrl = "https://app.famlam.ca"
 
 interface SupportTicketEmailProps {
   data: {
@@ -120,7 +120,8 @@ export const SupportTicketEmail = ({
             <Row>
               <Column
                 align="right"
-                style={{ width: "50%", paddingRight: "8px" }}>
+                style={{ width: "50%", paddingRight: "8px" }}
+              >
                 <Link href={`${baseUrl}`}>
                   <Img
                     src={`${baseUrl}/logo/logo512-dark-s.png`}
@@ -171,7 +172,8 @@ export const SupportTicketEmail = ({
                 lineHeight: "14px",
                 paddingTop: "10px",
                 paddingBottom: "30px",
-              }}>
+              }}
+            >
               © {year} HHN™, All Rights Reserved <br />
             </Text>
           </Section>

@@ -14,7 +14,7 @@ import {
   Text,
 } from "@react-email/components"
 
-const baseUrl = "https://www.famlam.ca"
+const baseUrl = "https://app.famlam.ca"
 
 interface VerifyEmailProps {
   data: {
@@ -82,7 +82,8 @@ export const VerifyEmailEmail = ({
                 data-darkreader-inline-border-right=""
                 data-darkreader-inline-border-bottom=""
                 data-darkreader-inline-border-left=""
-                data-darkreader-inline-color="">
+                data-darkreader-inline-color=""
+              >
                 verify
               </Button>
             </Section>
@@ -105,7 +106,8 @@ export const VerifyEmailEmail = ({
               <Link
                 href={`${baseUrl}/contact/support`}
                 style={link}
-                data-darkreader-inline-color="">
+                data-darkreader-inline-color=""
+              >
                 contact support
               </Link>
             </Text>
@@ -137,7 +139,8 @@ export const VerifyEmailEmail = ({
             <Row>
               <Column
                 align="right"
-                style={{ width: "50%", paddingRight: "8px" }}>
+                style={{ width: "50%", paddingRight: "8px" }}
+              >
                 <Link href={baseUrl}>
                   <Img
                     src={`${baseUrl}/logo/logo512-dark-s.png`}
@@ -188,7 +191,8 @@ export const VerifyEmailEmail = ({
                 lineHeight: "14px",
                 paddingTop: "10px",
                 paddingBottom: "30px",
-              }}>
+              }}
+            >
               © {year} HHN™, All Rights Reserved
             </Text>
           </Section>
