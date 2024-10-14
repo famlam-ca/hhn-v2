@@ -39,3 +39,18 @@
 - [ ] Write documentation for new features
   - [ ] Update README.md
   - [ ] Create user guides for Kanban board and VPS dashboard
+- [ ] Analytics (w/ Posthog)
+  - [ ] Integrate Posthog SDK into the frontend
+  - [ ] Track user interactions and events
+  - [ ] Create dashboards to visualize user behavior
+  - [ ] Set up alerts for key metrics
+- [ ] Error Management (w/ Sentry)
+  - [ ] Integrate Sentry SDK into the frontend and backend
+  - [ ] Configure Sentry to capture errors and performance issues
+  - [ ] Set up alerting for critical errors
+  - [ ] Create dashboards to monitor error trends
+- [ ] Ratelimiting (w/ Upstash)
+  - [ ] Integrate Upstash Redis for rate limiting
+  - [ ] Define rate limiting rules for API endpoints
+  - [ ] Implement middleware to enforce rate limits
+  - [ ] Monitor and adjust rate limits based on usage patterns

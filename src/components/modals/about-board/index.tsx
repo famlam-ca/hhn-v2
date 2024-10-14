@@ -76,9 +76,9 @@ export const AboutBoardModal = () => {
             })
           }
         },
-        onSettled: () => {
+        onSettled: async () => {
           setIsSaving(false)
-          utils.kanban.invalidate()
+          await utils.kanban.invalidate()
           form.reset()
         },
       },
@@ -106,9 +106,9 @@ export const AboutBoardModal = () => {
             })
           }
         },
-        onSettled: () => {
+        onSettled: async () => {
           setIsResetting(false)
-          utils.kanban.invalidate()
+          await utils.kanban.invalidate()
           form.reset()
         },
       },

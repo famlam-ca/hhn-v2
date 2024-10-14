@@ -32,6 +32,7 @@ import { BOARD_VISIBILITY } from "@/constants/kanban"
 import { useUpload } from "@/lib/uploadthing"
 import { useModal } from "@/store/useModal"
 import { trpc } from "@/trpc/react"
+import Image from "next/image"
 
 interface SettingsProps {
   boardId: string
@@ -53,10 +54,6 @@ export const Settings = ({ boardId }: SettingsProps) => {
   const updateBoardDescription =
     trpc.kanban.updateBoardDescription.useMutation()
   const updateBoardVisibility = trpc.kanban.updateBoardVisibility.useMutation()
-
-  if (!board || (member?.role !== "owner" && member?.role !== "admin")) {
-    return notFound()
-  }
 
   const [isSaving, setIsSaving] = useState<boolean>(false)
   const [isResetting, setIsResetting] = useState<boolean>(false)
@@ -96,8 +93,8 @@ export const Settings = ({ boardId }: SettingsProps) => {
             description: error.message,
           })
         },
-        onSettled: () => {
-          utils.kanban.invalidate()
+        onSettled: async () => {
+          await utils.kanban.invalidate()
         },
       },
     )
@@ -131,9 +128,9 @@ export const Settings = ({ boardId }: SettingsProps) => {
             })
           }
         },
-        onSettled: () => {
+        onSettled: async () => {
           setIsSaving(false)
-          utils.kanban.invalidate()
+          await utils.kanban.invalidate()
         },
       },
     )
@@ -159,9 +156,9 @@ export const Settings = ({ boardId }: SettingsProps) => {
             })
           }
         },
-        onSettled: () => {
+        onSettled: async () => {
           setIsResetting(false)
-          utils.kanban.invalidate()
+          await utils.kanban.invalidate()
         },
       },
     )
@@ -186,8 +183,8 @@ export const Settings = ({ boardId }: SettingsProps) => {
             description: error.message,
           })
         },
-        onSettled: () => {
-          utils.kanban.invalidate()
+        onSettled: async () => {
+          await utils.kanban.invalidate()
         },
       },
     )
@@ -207,6 +204,10 @@ export const Settings = ({ boardId }: SettingsProps) => {
     }, 500)
 
     return interval
+  }
+
+  if (!board || (member?.role !== "owner" && member?.role !== "admin")) {
+    return notFound()
   }
 
   return (
@@ -380,7 +381,10 @@ export const Settings = ({ boardId }: SettingsProps) => {
           <div className="group relative size-64">
             {coverUrl ? (
               <>
-                <img
+                <Image
+                  width={256}
+                  height={256}
+                  loading="lazy"
                   src={coverUrl || ""}
                   alt="board cover"
                   className="h-full w-full rounded-md object-cover group-hover:opacity-75"

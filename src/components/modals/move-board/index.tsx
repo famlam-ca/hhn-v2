@@ -4,8 +4,8 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Loader2 } from "lucide-react"
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
-import { z } from "zod"
 import { toast } from "sonner"
+import { z } from "zod"
 
 import {
   AlertDialog,
@@ -64,15 +64,16 @@ export const MoveBoardModal = () => {
   })
 
   function onSubmit(values: z.infer<typeof FormSchema>) {
+    if (!board?.id) return
     if (!isConfirmed) {
       return toast.error("Please type 'confirm' to confirm the action")
     }
-    if (board.team.id === values.teamId) {
+    if (board?.team.id === values.teamId) {
       return toast.warning("Board is already in this team")
     }
 
-    moveBoard.mutateAsync(
-      { boardId: board.id, teamId: values.teamId },
+    moveBoard.mutate(
+      { boardId: board?.id, teamId: values.teamId },
       {
         onSuccess: (data) => {
           toast.success(`Board moved to ${data.team.name}`)
@@ -82,9 +83,9 @@ export const MoveBoardModal = () => {
             description: error.message,
           })
         },
-        onSettled: () => {
-          utils.kanban.invalidate()
-          utils.team.invalidate()
+        onSettled: async () => {
+          await utils.kanban.invalidate()
+          await utils.team.invalidate()
           onClose()
         },
       },

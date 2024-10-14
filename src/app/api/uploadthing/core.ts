@@ -45,7 +45,7 @@ const onUploadComplete = async ({
       where: { id: createdFile.id },
       data: { uploadStatus: "completed" },
     })
-  } catch (error) {
+  } catch {
     await db.file.update({
       where: { id: createdFile.id },
       data: { uploadStatus: "failed" },

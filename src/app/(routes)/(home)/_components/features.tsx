@@ -11,7 +11,6 @@ interface FeatureProps extends HTMLMotionProps<"div"> {
   large?: boolean
   centered?: boolean
   children: ReactNode
-  lightOnly?: boolean
   className?: string
   href?: string
   target?: "_blank"
@@ -22,7 +21,6 @@ export function Feature({
   large,
   centered,
   children,
-  lightOnly,
   className,
   href,
   target,
@@ -37,7 +35,7 @@ export function Feature({
       viewport={{ once: true, margin: "-20px" }}
       transition={{ duration: Math.min(0.25 + index * 0.2, 0.8) }}
       className={cn(
-        "feature bg-background text-foreground outline-muted group relative w-full max-w-full overflow-hidden rounded-[1.78em] px-7 py-6 outline outline-1 transition-all",
+        "feature group relative w-full max-w-full overflow-hidden rounded-[1.78em] bg-background px-7 py-6 text-foreground outline outline-1 outline-muted transition-all",
         large && "col-span-1 lg:col-span-2",
         centered && "text-center",
         className,
@@ -47,7 +45,7 @@ export function Feature({
       {children}
       {href ? (
         <Link
-          className="group/scale oultine-1 bg-background/40 hover:bg-background/75 absolute bottom-[1em] right-[1em] z-[2] flex h-10 w-10 items-center justify-center rounded-full text-white opacity-0 outline outline-2 outline-white/50 backdrop-blur-md transition-all duration-200 ease-in-out hover:scale-105 hover:outline-white/65 hover:active:scale-100 hover:active:outline-white/50 group-hover:opacity-100"
+          className="group/scale oultine-1 absolute bottom-[1em] right-[1em] z-[2] flex h-10 w-10 items-center justify-center rounded-full bg-background/40 text-white opacity-0 outline outline-2 outline-white/50 backdrop-blur-md transition-all duration-200 ease-in-out hover:scale-105 hover:bg-background/75 hover:outline-white/65 hover:active:scale-100 hover:active:outline-white/50 group-hover:opacity-100"
           href={href}
           target={target}
         >

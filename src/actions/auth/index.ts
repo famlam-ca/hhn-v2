@@ -104,7 +104,7 @@ export const signUp = async (
 export const signIn = async (values: z.infer<typeof SignInSchema>) => {
   try {
     SignInSchema.parse(values)
-  } catch (error: any) {
+  } catch {
     return {
       success: false,
       message: "Invalid email or password!",
@@ -157,7 +157,7 @@ export const signIn = async (values: z.infer<typeof SignInSchema>) => {
     return {
       success: true,
     }
-  } catch (error: any) {
+  } catch {
     return {
       success: false,
       message: "Invalid email or password!",

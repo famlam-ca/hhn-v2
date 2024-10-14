@@ -52,10 +52,10 @@ export const ChangeBoardCoverModal = () => {
             description: error.message,
           })
         },
-        onSettled: () => {
+        onSettled: async () => {
           setIsUploading(false)
           setUploadProgress(0)
-          utils.kanban.invalidate()
+          await utils.kanban.invalidate()
           onClose()
         },
       },
@@ -77,11 +77,11 @@ export const ChangeBoardCoverModal = () => {
             description: error.message,
           })
         },
-        onSettled: () => {
+        onSettled: async () => {
           setIsRemoving(false)
           setIsUploading(false)
           setUploadProgress(0)
-          utils.kanban.invalidate()
+          await utils.kanban.invalidate()
         },
       },
     )

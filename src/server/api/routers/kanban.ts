@@ -208,6 +208,13 @@ export const kanbanRouter = createTRPCRouter({
           tasks: true,
         },
       })
+      if (!board) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Board not found",
+        })
+      }
+
       return (board as Board) ?? null
     }),
 
@@ -234,6 +241,13 @@ export const kanbanRouter = createTRPCRouter({
         tasks: true,
       },
     })
+    if (!boards) {
+      throw new TRPCError({
+        code: "NOT_FOUND",
+        message: "Boards not found",
+      })
+    }
+
     return (boards as Board[]) ?? null
   }),
 

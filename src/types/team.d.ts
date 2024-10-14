@@ -4,8 +4,8 @@ import {
   Team as TeamModel,
 } from "@prisma/client"
 
-import { Board } from "@/types/board"
-import { User } from "@/types/user"
+import { Board } from "./board"
+import { User } from "./user"
 
 export type Team = TeamModel & {
   boards: Board[]

@@ -89,8 +89,8 @@ export const ShareBoard = ({
             description: error.message,
           })
         },
-        onSettled: () => {
-          utils.kanban.invalidate()
+        onSettled: async () => {
+          await utils.kanban.invalidate()
         },
       },
     )
@@ -107,8 +107,8 @@ export const ShareBoard = ({
           description: error.message,
         })
       },
-      onSettled: () => {
-        utils.kanban.invalidate()
+      onSettled: async () => {
+        await utils.kanban.invalidate()
       },
     })
   }
@@ -163,7 +163,6 @@ export const ShareBoard = ({
                             member={member}
                             currentMember={currentMember}
                             updateMemberRole={handleUpdateMemberRole}
-                            isLoading={updateMemberRole.isPending}
                           />
                         ))
                       )}

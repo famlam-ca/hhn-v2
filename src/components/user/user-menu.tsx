@@ -27,7 +27,7 @@ import {
 
 interface UserMenuProps {
   user: User
-  pathname: string | "/"
+  pathname: string
 }
 
 export const UserMenu = ({ user, pathname }: UserMenuProps) => {
@@ -47,15 +47,15 @@ export const UserMenu = ({ user, pathname }: UserMenuProps) => {
             <div className="flex justify-between">
               <p className="text-sm font-medium">{user.display_name}</p>
               {full_name && (
-                <p className="text-muted-foreground truncate text-xs font-medium">
+                <p className="truncate text-xs font-medium text-muted-foreground">
                   {full_name}
                 </p>
               )}
             </div>
-            <p className="text-muted-foreground truncate text-xs">
+            <p className="truncate text-xs text-muted-foreground">
               {user.email}
             </p>
-            <p className="text-muted-foreground text-xs capitalize">
+            <p className="text-xs capitalize text-muted-foreground">
               {user.role}
             </p>
           </div>

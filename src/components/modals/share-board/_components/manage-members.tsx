@@ -18,14 +18,12 @@ interface ManageMembersProps {
   member: BoardMember
   currentMember: BoardMember
   updateMemberRole: (memberId: string, role: MemberRole | "remove") => void
-  isLoading?: boolean
 }
 
 export const ManageMembers = ({
   member,
   currentMember,
   updateMemberRole,
-  isLoading,
 }: ManageMembersProps) => {
   const [memberRole, setMemberRole] = useState<MemberRole | "remove">(
     member.role,

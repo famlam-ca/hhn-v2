@@ -68,8 +68,8 @@ export const CreateBoardModal = () => {
           description: error.message,
         })
       },
-      onSettled: () => {
-        utils.kanban.invalidate()
+      onSettled: async () => {
+        await utils.kanban.invalidate()
         form.reset()
       },
     })

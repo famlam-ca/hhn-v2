@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input"
 import { useModal } from "@/store/useModal"
 import { useSheet } from "@/store/useSheet"
 import { trpc } from "@/trpc/react"
-import { Board, BoardMember } from "@/types/board"
+import { BoardMember } from "@/types/board"
 import { User } from "@/types/user"
 
 import { BoardUserMenu } from "./board-user-menu"
@@ -22,15 +22,16 @@ import { VisibilityMenu } from "./visibility-menu"
 import { FavoriteBoardButton } from "../../_components/favorite-board-button"
 
 interface KanbanNavbarProps {
-  board: Board
+  boardId: string
   user: User
 }
 
-export const KanbanNavbar = ({ board, user }: KanbanNavbarProps) => {
+export const KanbanNavbar = ({ boardId, user }: KanbanNavbarProps) => {
   const { onOpen } = useModal()
   const { onOpen: onOpenSheet } = useSheet()
 
   const utils = trpc.useUtils()
+  const [board] = trpc.kanban.getBoard.useSuspenseQuery(boardId)
   const updateBoardTitle = trpc.kanban.updateBoardTitle.useMutation()
   const favoriteBoard = trpc.kanban.favoriteBoard.useMutation()
   const updateBoardVisibility = trpc.kanban.updateBoardVisibility.useMutation()
@@ -75,8 +76,8 @@ export const KanbanNavbar = ({ board, user }: KanbanNavbarProps) => {
             description: error.message,
           })
         },
-        onSettled: () => {
-          utils.kanban.invalidate()
+        onSettled: async () => {
+          await utils.kanban.invalidate()
         },
       },
     )
@@ -99,8 +100,8 @@ export const KanbanNavbar = ({ board, user }: KanbanNavbarProps) => {
           description: error.message,
         })
       },
-      onSettled: () => {
-        utils.kanban.invalidate()
+      onSettled: async () => {
+        await utils.kanban.invalidate()
       },
     })
   }
@@ -122,8 +123,8 @@ export const KanbanNavbar = ({ board, user }: KanbanNavbarProps) => {
             description: error.message,
           })
         },
-        onSettled: () => {
-          utils.kanban.invalidate()
+        onSettled: async () => {
+          await utils.kanban.invalidate()
         },
       },
     )

@@ -58,7 +58,7 @@ export const validateSession = cache(
           sessionCookie.attributes,
         )
       }
-    } catch (error) {
+    } catch {
       // next.js throws when you attempt to set cookie when rendering page
     }
 

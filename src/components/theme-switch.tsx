@@ -23,7 +23,7 @@ export function ThemeSwitch({ lite, className }: ThemeSwitchProps) {
 
   useEffect(() => {
     if (!mounted) return
-  }, [])
+  }, [mounted])
 
   const IconToUse = theme === "system" ? Monitor : theme === "dark" ? Moon : Sun
 
@@ -41,7 +41,7 @@ export function ThemeSwitch({ lite, className }: ThemeSwitchProps) {
           onClick={toggleTheme}
           onKeyDown={(e) => {
             if (e.key === "Enter" || e.key === " ") {
-              toggleTheme
+              toggleTheme()
             }
           }}
           className={className}
@@ -57,7 +57,7 @@ export function ThemeSwitch({ lite, className }: ThemeSwitchProps) {
         >
           <SelectTrigger
             className={cn(
-              "hover:text-foreground focus:text-foreground text-current",
+              "text-current hover:text-foreground focus:text-foreground",
               className,
             )}
           >

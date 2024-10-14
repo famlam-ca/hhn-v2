@@ -47,8 +47,8 @@ export const DeleteBoardModal = () => {
           description: error.message,
         })
       },
-      onSettled: () => {
-        utils.kanban.invalidate()
+      onSettled: async () => {
+        await utils.kanban.invalidate()
         router.push("/kanban")
         onClose()
       },

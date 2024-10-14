@@ -7,10 +7,10 @@ import Link from "next/link"
 import { Feature, Features } from "./features"
 import "./features.css"
 
-import dashboardDark from "/public/assets/home/dashboard.dark.png"
-import dashboard from "/public/assets/home/dashboard.png"
-import proxmoxDark from "/public/assets/home/proxmox.dark.png"
-import proxmox from "/public/assets/home/proxmox.png"
+import dashboardDark from "public/assets/home/dashboard.dark.png"
+import dashboard from "public/assets/home/dashboard.png"
+import proxmoxDark from "public/assets/home/proxmox.dark.png"
+import proxmox from "public/assets/home/proxmox.png"
 
 export const FeatureSection = ({ user }: { user: User }) => {
   const getStarted = user ? "/dashboard" : "/signup?next=/dashboard"
@@ -150,8 +150,8 @@ export const FeatureSection = ({ user }: { user: User }) => {
           </h3>
           <p className="max-w-full sm:max-w-80">
             Get your VPS up and running in no time with our easy setup process.
-            Whether you're a tech newbie or a seasoned pro, you'll find our
-            platform intuitive and user-friendly.
+            Whether you&apos;re a tech newbie or a seasoned pro, you&apos;ll
+            find our platform intuitive and user-friendly.
           </p>
         </div>
         <div className="absolute inset-0 z-[1] hidden h-full w-full bg-[linear-gradient(to_right,hsl(var(--background))_250px,_transparent)] dark:bg-[linear-gradient(to_right,hsl(var(--background))_250px,_transparent)] sm:block" />

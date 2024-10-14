@@ -60,8 +60,8 @@ export const CreateTeamModal = () => {
           description: error.message,
         })
       },
-      onSettled: () => {
-        utils.team.invalidate()
+      onSettled: async () => {
+        await utils.team.invalidate()
         form.reset()
       },
     })

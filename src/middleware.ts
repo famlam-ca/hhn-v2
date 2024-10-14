@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 
 import { getCallbackUrl } from "@/lib/utils"
 
-export default async function middleware(req: NextRequest) {
+export default function middleware(req: NextRequest) {
   const authCookie = req.cookies.get("auth_session")
   if (!authCookie || !authCookie.value) {
     const callbackUrl = getCallbackUrl(req)

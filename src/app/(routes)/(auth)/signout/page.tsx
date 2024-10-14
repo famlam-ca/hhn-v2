@@ -17,7 +17,7 @@ const SignOutPage = () => {
     signOut().then(() => {
       router.push(next ? next : "/")
     })
-  }, [])
+  }, [router, next])
 
   return (
     <div className="flex h-full flex-col items-center justify-center space-y-4 text-lg">

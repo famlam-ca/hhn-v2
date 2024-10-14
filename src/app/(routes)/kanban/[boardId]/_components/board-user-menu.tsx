@@ -82,7 +82,7 @@ export const BoardUserMenu = ({ user, currentMember }: BoardUserMenuProps) => {
         <div className="mx-4 my-2 h-px bg-muted-foreground/50" />
 
         <button className="w-full rounded-sm px-4 py-2 text-left hover:bg-muted-foreground/10">
-          View member's board activity
+          View member&apos;s board activity
         </button>
       </PopoverContent>
     </Popover>

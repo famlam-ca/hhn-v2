@@ -6,8 +6,8 @@ import {
   Task as TaskModel,
 } from "@prisma/client"
 
-import { Team } from "@/types/team"
-import { User } from "@/types/user"
+import { Team } from "./team"
+import { User } from "./user"
 
 export type Board = BoardModel & {
   team: Team

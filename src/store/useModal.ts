@@ -1,6 +1,6 @@
 import { create } from "zustand"
 
-import { Board, BoardMember } from "@/types/kanban"
+import { Board, BoardMember } from "@/types/board"
 
 export type ModalType =
   | "share-board"
@@ -16,7 +16,7 @@ export type ModalType =
 interface ModalData {
   boardId?: string
   board?: Board
-  fromCreateBoard?: Boolean
+  fromCreateBoard?: boolean
   currentMember?: BoardMember
   showTabs?: boolean
   initDescription?: string | null

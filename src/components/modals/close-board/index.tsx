@@ -36,8 +36,8 @@ export const CloseBoardModal = () => {
           description: error.message,
         })
       },
-      onSettled: () => {
-        utils.kanban.invalidate()
+      onSettled: async () => {
+        await utils.kanban.invalidate()
         onClose()
       },
     })
