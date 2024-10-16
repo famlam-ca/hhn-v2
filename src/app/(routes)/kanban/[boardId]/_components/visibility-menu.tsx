@@ -31,7 +31,7 @@ export const VisibilityMenu = ({
 }: VisibilityMenuProps) => {
   const MENU_ITEMS: VisibilityMenuItemProps[] = [
     {
-      icon: <LockKeyhole className="stroke-alert size-3" />,
+      icon: <LockKeyhole className="size-3 stroke-alert" />,
       label: "Private",
       description:
         "Only board members can see this board. Board owners can close or remove the board.",
@@ -47,7 +47,7 @@ export const VisibilityMenu = ({
       onClick: () => changeVisibility("team"),
     },
     {
-      icon: <Globe2 className="stroke-success size-3" />,
+      icon: <Globe2 className="size-3 stroke-success" />,
       label: "Public",
       description:
         "Anyone on the internet can see this board. Only board members can edit.",
@@ -61,7 +61,7 @@ export const VisibilityMenu = ({
       <Hint label="Change visibility" asChild>
         <PopoverTrigger asChild>
           <Button size="icon" variant="ghost" className="group">
-            <Users2 className="size-4 transition-all group-hover:scale-110" />
+            <Users2 className="size-6 transition-all group-hover:scale-110 md:size-4" />
           </Button>
         </PopoverTrigger>
       </Hint>

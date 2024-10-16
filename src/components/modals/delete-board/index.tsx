@@ -41,6 +41,8 @@ export const DeleteBoardModal = () => {
     deleteBoard.mutate(boardId, {
       onSuccess: () => {
         toast.success("Board deleted")
+        router.push("/kanban")
+        onClose()
       },
       onError: (error) => {
         toast.error("Oops!", {
@@ -49,8 +51,6 @@ export const DeleteBoardModal = () => {
       },
       onSettled: async () => {
         await utils.kanban.invalidate()
-        router.push("/kanban")
-        onClose()
       },
     })
   }

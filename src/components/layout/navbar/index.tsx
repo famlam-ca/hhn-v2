@@ -1,25 +1,26 @@
 "use client"
 
 import { User } from "@prisma/client"
-import { ArrowUpRight } from "lucide-react"
+import { ArrowUpRight, Menu } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
 import { Icons } from "@/components/icons"
 import { MaxWidthWrapper } from "@/components/layout/max-width-wrapper"
 import { ThemeSwitch } from "@/components/theme-switch"
-import { buttonVariants } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import { UserMenu } from "@/components/user/user-menu"
 import { NAVBAR_ROUTES } from "@/constants/nav_routes"
 import { useRouteCheck } from "@/hooks/use-route-check"
 import { cn } from "@/lib/utils"
 import { useSession } from "@/providers/session-provider"
+import { useSheet } from "@/store/useSheet"
 
 export const Navbar = () => {
   const { user } = useSession()
   const pathname = usePathname()
+  const { onOpen } = useSheet()
 
-  const boardRoute = useRouteCheck(["kanban"], true)
   const onBoardingRoute = useRouteCheck(["onboarding"])
   const authRoutes = useRouteCheck(["signin", "signup", "signout"])
 
@@ -27,9 +28,6 @@ export const Navbar = () => {
     <nav
       className={cn(
         "fixed inset-x-0 top-0 z-50 h-16 w-full backdrop-blur-lg transition-all",
-        {
-          "border-none": onBoardingRoute || boardRoute,
-        },
       )}
     >
       <MaxWidthWrapper>
@@ -39,9 +37,12 @@ export const Navbar = () => {
           </Link>
 
           <div
-            className={cn("flex items-center gap-x-4 text-muted-foreground", {
-              "text-foreground": onBoardingRoute,
-            })}
+            className={cn(
+              "hidden items-center gap-x-4 text-muted-foreground md:flex",
+              {
+                "text-foreground": onBoardingRoute,
+              },
+            )}
           >
             {!authRoutes ? (
               <ul className="flex items-center space-x-4 text-xs font-semibold">
@@ -91,6 +92,17 @@ export const Navbar = () => {
             ) : null}
 
             <ThemeSwitch lite />
+          </div>
+
+          <div className="flex gap-2 md:hidden">
+            {user ? <UserMenu user={user as User} pathname={pathname} /> : null}
+            <Button
+              onClick={() => onOpen("main-nav")}
+              size="icon"
+              variant="ghost"
+            >
+              <Menu className="size-8" />
+            </Button>
           </div>
         </div>
       </MaxWidthWrapper>

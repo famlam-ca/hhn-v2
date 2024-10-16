@@ -22,9 +22,12 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { trpc } from "@/trpc/react"
 import { SignInSchema } from "@/validators/auth"
 
 export const SignInForm = () => {
+  const utils = trpc.useUtils()
+
   const [showPassword, setShowPassword] = useState<boolean>(false)
 
   const togglePassword = () => setShowPassword(!showPassword)
@@ -48,6 +51,8 @@ export const SignInForm = () => {
           onClick: handleActionClick,
         },
       })
+    } else {
+      await utils.invalidate()
     }
   }
 
@@ -76,7 +81,7 @@ export const SignInForm = () => {
           </h1>
         </div>
 
-        <div className="sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="mx-auto w-full max-w-md px-4">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               <FormField
@@ -88,6 +93,7 @@ export const SignInForm = () => {
                     <FormControl>
                       <Input
                         type="email"
+                        autoFocus
                         placeholder="jdoe@gmail.com"
                         {...field}
                         className={styles.input}

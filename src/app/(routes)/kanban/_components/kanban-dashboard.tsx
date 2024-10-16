@@ -27,7 +27,10 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
+  SelectLabel,
+  SelectSeparator,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
@@ -37,6 +40,7 @@ import { useSheet } from "@/store/useSheet"
 import { trpc } from "@/trpc/react"
 import { Board } from "@/types/board"
 
+import KanbanDashboardLoadingSkeleton from "../loading"
 import { FavoriteBoardButton } from "./favorite-board-button"
 import "./styles.css"
 
@@ -71,7 +75,9 @@ export const KanbanDashboard = ({ displayName }: KanbanDashboardProps) => {
   const filteredBoards =
     teamId === "all"
       ? boards
-      : boards.filter((board) => board.teamId === teamId)
+      : teamId === "public"
+        ? boards.filter((board) => board.visibility === "public")
+        : boards.filter((board) => board.teamId === teamId)
 
   const sortedBoards = [...filteredBoards].sort((a, b) => {
     const aFavorited = a.favoritedBy[0]?.favorited ?? 0
@@ -80,6 +86,10 @@ export const KanbanDashboard = ({ displayName }: KanbanDashboardProps) => {
     if (aFavorited < bFavorited) return 1
     return 0
   })
+
+  if (!boards.length && !teams.length) {
+    return <KanbanDashboardLoadingSkeleton />
+  }
 
   return (
     <MaxWidthWrapper className="my-8 flex max-w-full flex-col">
@@ -119,12 +129,26 @@ export const KanbanDashboard = ({ displayName }: KanbanDashboardProps) => {
               <SelectValue placeholder="Workspaces" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All</SelectItem>
-              {teams.map((team) => (
-                <SelectItem key={team.id} value={team.id}>
-                  {team.name}
-                </SelectItem>
-              ))}
+              <SelectGroup>
+                <SelectLabel className="text-muted-foreground">
+                  Visibility
+                </SelectLabel>
+                <SelectItem value="all">All</SelectItem>
+                <SelectItem value="public">Public</SelectItem>
+              </SelectGroup>
+
+              <SelectSeparator className="mx-4" />
+
+              <SelectGroup>
+                <SelectLabel className="text-muted-foreground">
+                  Your teams
+                </SelectLabel>
+                {teams.map((team) => (
+                  <SelectItem key={team.id} value={team.id}>
+                    {team.name}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
             </SelectContent>
           </Select>
         </div>
@@ -250,13 +274,16 @@ const BoardCard = ({ board, layout }: BoardCardProps) => {
 
   return (
     <motion.div
+      tabIndex={0}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
-      className={`box h-48 rounded-lg bg-secondary ${isHovered ? "box-hover" : ""}`}
+      onFocus={() => setIsHovered(true)}
+      onBlur={() => setIsHovered(false)}
+      className={`box h-48 rounded-lg bg-secondary ${isHovered ? "box-hover" : ""} hover:box-hover`}
       animate={{ y: isHovered ? -5 : 0 }}
       transition={{ duration: 0.125, ease: "easeInOut" }}
     >
-      <a href={`/kanban/${board.id}`}>
+      <a href={`/kanban/${board.id}`} tabIndex={-1}>
         {layout === "grid" ? (
           <div className="h-full">
             <div className="relative h-2/3 w-full">
@@ -280,8 +307,8 @@ const BoardCard = ({ board, layout }: BoardCardProps) => {
                     onClick={(e) => e.preventDefault()}
                     className="shrink-0"
                   >
-                    <Hint label={detail.label}>
-                      <div className="flex items-center gap-1.5 rounded-lg bg-background/50 p-2">
+                    <Hint label={detail.label} tabIndex={-1}>
+                      <div className="flex items-center gap-1.5 rounded-lg bg-background/75 p-2 dark:bg-background/50">
                         {detail.icon}
                         <p className="max-w-xs truncate capitalize">
                           {detail.value}

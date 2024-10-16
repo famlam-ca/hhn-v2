@@ -26,6 +26,12 @@ footer {
   grid-area: footer;
 }
 
+@media screen and (max-width: 768px) {
+  body {
+    grid-template-rows: 4rem 1fr 10rem;
+  }
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -118,5 +124,5 @@ footer {
   height: 8px;
 }
 ::-webkit-scrollbar-thumb {
-  @apply bg-primary rounded-xl;
+  @apply rounded-xl bg-primary;
 }

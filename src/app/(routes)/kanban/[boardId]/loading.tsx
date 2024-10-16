@@ -4,7 +4,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 const KanbanBoardLoading = () => {
   return (
     <div className="h-[calc(100%-10rem)] w-full">
-      <div className="border-border fixed inset-x-0 top-16 z-50 h-16 border-b bg-transparent backdrop-blur-lg transition-all">
+      <div className="fixed inset-x-0 top-16 z-50 h-16 border-b border-border bg-transparent backdrop-blur-lg transition-all">
         <MaxWidthWrapper className="flex h-full w-full items-center justify-between">
           <div className="flex items-center gap-2">
             <Skeleton className="h-10 w-96" />

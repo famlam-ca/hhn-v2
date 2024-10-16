@@ -4,55 +4,65 @@ import { motion } from "framer-motion"
 import { Flame, Plus, Trash2 } from "lucide-react"
 import { Dispatch, DragEvent, FormEvent, SetStateAction, useState } from "react"
 
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
+import { MaxWidthWrapper } from "@/components/layout/max-width-wrapper"
+
 interface DraggableAreaProps {}
 
 export const DraggableArea = ({}: DraggableAreaProps) => {
   // TODO: Trash appears in bottom left when dragging a card
-  return <DraggableAreaTesting />
+  return (
+    <ScrollArea className="mt-16 w-screen">
+      <DraggableAreaTesting />
+      <ScrollBar orientation="horizontal" />
+    </ScrollArea>
+  )
 }
 
 const DraggableAreaTesting = () => {
   const [cards, setCards] = useState(DEFAULT_CARDS)
 
   return (
-    <div className="flex h-full w-full gap-3 p-12">
-      <Column
-        title="Backlog"
-        column="backlog"
-        headingColor="text-muted-foreground"
-        cards={cards}
-        setCards={setCards}
-      />
-      <Column
-        title="TODO"
-        column="todo"
-        headingColor="text-warning"
-        cards={cards}
-        setCards={setCards}
-      />
-      <Column
-        title="In progress"
-        column="doing"
-        headingColor="text-primary"
-        cards={cards}
-        setCards={setCards}
-      />
-      <Column
-        title="Complete"
-        column="done"
-        headingColor="text-success"
-        cards={cards}
-        setCards={setCards}
-      />
-      <Column
-        title="Archived"
-        column="archived"
-        headingColor="text-purple-500"
-        cards={cards}
-        setCards={setCards}
-      />
-      <BurnBarrel setCards={setCards} />
-    </div>
+    <MaxWidthWrapper className="w-max">
+      <div className="flex h-full gap-3 py-12">
+        <Column
+          title="Backlog"
+          column="backlog"
+          headingColor="text-muted-foreground"
+          cards={cards}
+          setCards={setCards}
+        />
+        <Column
+          title="TODO"
+          column="todo"
+          headingColor="text-warning"
+          cards={cards}
+          setCards={setCards}
+        />
+        <Column
+          title="In progress"
+          column="doing"
+          headingColor="text-primary"
+          cards={cards}
+          setCards={setCards}
+        />
+        <Column
+          title="Complete"
+          column="done"
+          headingColor="text-success"
+          cards={cards}
+          setCards={setCards}
+        />
+        <Column
+          title="Archived"
+          column="archived"
+          headingColor="text-purple-500"
+          cards={cards}
+          setCards={setCards}
+        />
+        <BurnBarrel setCards={setCards} />
+      </div>
+    </MaxWidthWrapper>
   )
 }
 

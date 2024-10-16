@@ -77,6 +77,7 @@ export const MoveBoardModal = () => {
       {
         onSuccess: (data) => {
           toast.success(`Board moved to ${data.team.name}`)
+          onClose()
         },
         onError: (error) => {
           toast.error("Oops!", {
@@ -86,7 +87,6 @@ export const MoveBoardModal = () => {
         onSettled: async () => {
           await utils.kanban.invalidate()
           await utils.team.invalidate()
-          onClose()
         },
       },
     )
