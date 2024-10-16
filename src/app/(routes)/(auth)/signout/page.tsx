@@ -6,15 +6,18 @@ import { useEffect } from "react"
 
 import { signOut } from "@/actions/auth"
 import { useSession } from "@/providers/session-provider"
+import { trpc } from "@/trpc/react"
 
 const SignOutPage = () => {
   const router = useRouter()
+  const utils = trpc.useUtils()
   const next = useSearchParams().get("next")
   const { session } = useSession()
   if (!session) router.push(next ? next : "/")
 
   useEffect(() => {
-    signOut().then(() => {
+    signOut().then(async () => {
+      await utils.invalidate()
       router.push(next ? next : "/")
     })
   }, [router, next])

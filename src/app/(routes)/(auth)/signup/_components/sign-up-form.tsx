@@ -95,7 +95,7 @@ export const SignUpForm = () => {
           </h1>
         </div>
 
-        <div className="sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="mx-auto w-full max-w-md px-4">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               {step === 1 ? (
@@ -109,6 +109,7 @@ export const SignUpForm = () => {
                         <FormControl>
                           <Input
                             type="text"
+                            autoFocus
                             placeholder="Display Name"
                             {...field}
                             className={styles.input}

@@ -248,12 +248,12 @@ export const Settings = ({ boardId }: SettingsProps) => {
           <div className="flex flex-col gap-2">
             <Label>Description</Label>
             <div className="flex gap-2">
-              <div>
+              <div className="w-full max-w-80">
                 <Textarea
                   disabled={isSaving}
                   value={boardDescription || ""}
                   onChange={(e) => setBoardDescription(e.target.value)}
-                  className="w-80 resize-none"
+                  className="resize-none"
                 />
                 <Button
                   disabled={isResetting || board.description === null}
@@ -317,7 +317,7 @@ export const Settings = ({ boardId }: SettingsProps) => {
           <div className="flex flex-col gap-2">
             <Label>Board ID</Label>
             <div className="flex gap-2">
-              <Input disabled value={board.id} className="w-80" />
+              <Input disabled value={board.id} className="w-full max-w-80" />
               <Button
                 disabled={isCopied}
                 onClick={() => {
@@ -341,7 +341,7 @@ export const Settings = ({ boardId }: SettingsProps) => {
           </div>
 
           {/* Board dates */}
-          <div className="flex gap-2">
+          <div className="flex w-full max-w-full gap-2 truncate">
             <div className="space-y-2">
               <Label>Created at</Label>
               <Input
@@ -362,6 +362,7 @@ export const Settings = ({ boardId }: SettingsProps) => {
 
             <div className="space-y-2">
               <Label>Closed At</Label>
+
               <Input
                 disabled
                 value={
@@ -507,7 +508,7 @@ export const Settings = ({ boardId }: SettingsProps) => {
 
         {/* Danger zone */}
         <div className="col-span-full">
-          <Label className="text-3xl font-bold text-alert">Danger zone</Label>
+          <Label className="text-3xl font-bold">Danger zone</Label>
           <div className="mt-2 rounded-lg border-2 border-alert">
             <div className="flex items-center justify-between p-4">
               <span>

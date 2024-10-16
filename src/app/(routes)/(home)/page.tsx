@@ -12,7 +12,7 @@ export default async function Home() {
     <div className="leading-7">
       <div className="mx-auto my-0 max-w-[90rem] space-y-8 pl-[max(1.5rem)] pr-[max(1.5rem)]">
         <h1 className="ml-[-0.2rem] mt-16 inline-flex flex-col text-4xl font-bold leading-tight tracking-[-0.12rem] text-foreground md:text-5xl lg:text-6xl xl:text-7xl xl:tracking-[-0.08rem]">
-          <span className="bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-foreground to-primary bg-clip-text pb-2 text-transparent">
             Server Management <br /> Made Simple
           </span>
         </h1>

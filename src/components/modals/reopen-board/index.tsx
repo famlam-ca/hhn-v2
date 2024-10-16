@@ -30,6 +30,7 @@ export const ReopenBoardModal = () => {
     reopenBoard.mutate(boardId, {
       onSuccess: () => {
         toast.success("Board reopened!")
+        onClose()
       },
       onError: (error) => {
         toast.error("Oops!", {
@@ -38,7 +39,6 @@ export const ReopenBoardModal = () => {
       },
       onSettled: async () => {
         await utils.kanban.invalidate()
-        onClose()
       },
     })
   }

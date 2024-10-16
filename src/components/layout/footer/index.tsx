@@ -19,7 +19,7 @@ export const Footer = () => {
         hidden: kanbanOnboardingRoute,
       })}
     >
-      <MaxWidthWrapper className="text-muted-foreground h-full items-end pb-8 sm:flex">
+      <MaxWidthWrapper className="h-full items-end pb-8 text-muted-foreground sm:flex">
         <div className="flex w-full flex-col items-center sm:items-start">
           <div className="flex items-center gap-2">
             <Link
@@ -53,7 +53,7 @@ export const Footer = () => {
             {SOCIALS.map(({ label, href, icon: Icon }) => (
               <Hint key={label} label={label} asChild>
                 <Link href={href} target="_blank">
-                  <span className="hover:text-foreground text-sm">
+                  <span className="text-sm hover:text-foreground">
                     <Icon size={20} />
                   </span>
                 </Link>
@@ -61,11 +61,11 @@ export const Footer = () => {
             ))}
           </div>
 
-          <div className="mt-6 flex items-center justify-center gap-4 sm:justify-end">
+          <div className="my-6 flex items-center justify-center gap-4 sm:justify-end md:mb-0 md:mt-6">
             {ROUTES.map(({ label, href, target }) => (
               <Link key={label} href={href} target={target}>
                 <span
-                  className={cn("hover:text-foreground text-sm", {
+                  className={cn("text-sm hover:text-foreground", {
                     flex: target,
                   })}
                 >

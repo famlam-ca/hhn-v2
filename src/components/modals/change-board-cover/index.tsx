@@ -46,6 +46,7 @@ export const ChangeBoardCoverModal = () => {
         onSuccess: (data) => {
           setCoverUrl(data.coverUrl)
           toast.success("Board cover updated!")
+          onClose()
         },
         onError: (error) => {
           toast.error("Oops!", {
@@ -56,7 +57,6 @@ export const ChangeBoardCoverModal = () => {
           setIsUploading(false)
           setUploadProgress(0)
           await utils.kanban.invalidate()
-          onClose()
         },
       },
     )

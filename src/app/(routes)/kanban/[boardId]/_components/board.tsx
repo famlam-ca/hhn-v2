@@ -1,6 +1,5 @@
 "use client"
 
-import { MaxWidthWrapper } from "@/components/layout/max-width-wrapper"
 import { User } from "@/types/user"
 
 import { DraggableArea } from "./draggable-area"
@@ -13,12 +12,9 @@ interface KanbanBoardProps {
 
 export const KanbanBoard = ({ boardId, user }: KanbanBoardProps) => {
   return (
-    <>
+    <div>
       <KanbanNavbar boardId={boardId} user={user} />
-
-      <MaxWidthWrapper className="mt-16 max-w-full">
-        <DraggableArea />
-      </MaxWidthWrapper>
-    </>
+      <DraggableArea />
+    </div>
   )
 }

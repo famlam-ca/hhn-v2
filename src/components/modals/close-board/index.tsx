@@ -13,12 +13,15 @@ import {
 } from "@/components/ui/alert-dialog"
 import { Button } from "@/components/ui/button"
 import { useModal } from "@/store/useModal"
+import { useSheet } from "@/store/useSheet"
 import { trpc } from "@/trpc/react"
 
 export const CloseBoardModal = () => {
   const { isOpen, onOpen, type, onClose, data } = useModal()
+  const { isOpen: openSheet, onClose: closeSheet, type: sheetType } = useSheet()
 
   const isModalOpen = isOpen && type === "close-board"
+  const isSheetOpen = openSheet && sheetType === "board-options"
   const { boardId } = data
 
   const utils = trpc.useUtils()
@@ -30,6 +33,8 @@ export const CloseBoardModal = () => {
     closeBoard.mutate(boardId, {
       onSuccess: () => {
         toast.success("Board closed")
+        if (isSheetOpen) closeSheet()
+        onClose()
       },
       onError: (error) => {
         toast.error("Oops!", {
@@ -38,7 +43,6 @@ export const CloseBoardModal = () => {
       },
       onSettled: async () => {
         await utils.kanban.invalidate()
-        onClose()
       },
     })
   }

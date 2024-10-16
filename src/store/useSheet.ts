@@ -1,6 +1,6 @@
 import { create } from "zustand"
 
-export type SheetType = "board-options"
+export type SheetType = "board-options" | "main-nav"
 
 interface SheetData {
   boardId?: string

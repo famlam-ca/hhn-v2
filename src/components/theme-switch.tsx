@@ -44,7 +44,7 @@ export function ThemeSwitch({ lite, className }: ThemeSwitchProps) {
               toggleTheme()
             }
           }}
-          className={className}
+          className={cn("text-current hover:text-foreground", className)}
         >
           <IconToUse />
         </button>
@@ -57,18 +57,20 @@ export function ThemeSwitch({ lite, className }: ThemeSwitchProps) {
         >
           <SelectTrigger
             className={cn(
-              "text-current hover:text-foreground focus:text-foreground",
+              "gap-4 text-current hover:text-foreground focus:text-foreground",
               className,
             )}
           >
-            <IconToUse />
-            <span className="capitalize">
-              {
-                Object.entries(themeMapping).find(
-                  ([_, value]) => value === theme,
-                )?.[1]
-              }
-            </span>
+            <div className="flex items-center gap-4">
+              <IconToUse />
+              <span className="capitalize">
+                {
+                  Object.entries(themeMapping).find(
+                    ([_, value]) => value === theme,
+                  )?.[1]
+                }
+              </span>
+            </div>
           </SelectTrigger>
           <SelectContent>
             {Object.entries(themeMapping).map(([key, value]) => (

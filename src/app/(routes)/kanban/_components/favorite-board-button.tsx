@@ -15,7 +15,7 @@ export const FavoriteBoardButton = ({
     <Star
       className={cn(
         "transition-all group-hover:scale-110",
-        layout === "list" ? "size-6" : "size-4",
+        layout === "list" ? "size-6 md:size-6" : "size-6 md:size-4",
         {
           "fill-yellow-500 stroke-yellow-500 group-hover:fill-none dark:fill-yellow-400 dark:stroke-yellow-400":
             boardFavorited,

@@ -230,6 +230,7 @@ export const kanbanRouter = createTRPCRouter({
             ],
           },
           { AND: [{ visibility: "private" }, { ownerId: ctx.user.id }] },
+          { visibility: "public" },
         ],
         closed: false,
       },

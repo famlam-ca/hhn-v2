@@ -17,6 +17,7 @@ import {
 } from "lucide-react"
 import { useRouter } from "next/navigation"
 
+import { ScrollArea } from "@/components/ui/scroll-area"
 import {
   SheetDescription,
   SheetHeader,
@@ -142,23 +143,25 @@ export const BoardOptions = ({ boardId, user }: BoardOptionsProps) => {
 
       <div className="my-4 h-px bg-accent" />
 
-      <div className="flex flex-col gap-2">
-        {SHEET_ITEMS.slice(0, 3).map((item, i) => (
-          <SheetItem key={i} {...item} />
-        ))}
+      <ScrollArea className="h-[calc(100dvh-6rem)]">
+        <div className="flex flex-col gap-2">
+          {SHEET_ITEMS.slice(0, 3).map((item, i) => (
+            <SheetItem key={i} {...item} />
+          ))}
 
-        <div className="my-0 h-px bg-accent" />
+          <div className="my-0 h-px bg-accent" />
 
-        {SHEET_ITEMS.slice(3, 7).map((item, i) => (
-          <SheetItem key={i} {...item} />
-        ))}
+          {SHEET_ITEMS.slice(3, 7).map((item, i) => (
+            <SheetItem key={i} {...item} />
+          ))}
 
-        <div className="my-0 h-px bg-accent" />
+          <div className="my-0 h-px bg-accent" />
 
-        {SHEET_ITEMS.slice(7).map((item, i) => (
-          <SheetItem key={i} {...item} />
-        ))}
-      </div>
+          {SHEET_ITEMS.slice(7).map((item, i) => (
+            <SheetItem key={i} {...item} />
+          ))}
+        </div>
+      </ScrollArea>
     </>
   )
 }

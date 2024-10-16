@@ -131,12 +131,12 @@ export const KanbanNavbar = ({ boardId, user }: KanbanNavbarProps) => {
   }
 
   return (
-    <div className="fixed inset-x-0 top-16 z-50 h-16 border-b border-border bg-transparent transition-all">
+    <div className="fixed inset-x-0 top-16 z-50 h-16 border-b border-border transition-all">
       <MaxWidthWrapper className="flex h-full items-center justify-between">
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-4 md:gap-1">
           <div
             onClick={() => setEditMode(true)}
-            className="max-w-[400px] truncate"
+            className="max-w-[250px] truncate md:max-w-[400px]"
           >
             {editMode ? (
               <Input
@@ -166,42 +166,47 @@ export const KanbanNavbar = ({ boardId, user }: KanbanNavbarProps) => {
             )}
           </div>
 
-          <Button
-            onClick={handleFavorite}
-            onKeyDown={handleFavorite}
-            size="icon"
-            variant="ghost"
-            className="group"
-          >
-            <FavoriteBoardButton boardFavorited={boardFavorited} />
-          </Button>
+          <div className="hidden md:block">
+            <Button
+              onClick={handleFavorite}
+              onKeyDown={handleFavorite}
+              size="icon"
+              variant="ghost"
+              className="group"
+            >
+              <FavoriteBoardButton boardFavorited={boardFavorited} />
+            </Button>
 
-          {currentMember &&
-          (currentMember.role === "owner" || currentMember.role === "admin") ? (
-            <VisibilityMenu
-              visibility={boardVisibility}
-              changeVisibility={handleVisibility}
-            />
-          ) : null}
+            {currentMember &&
+            (currentMember.role === "owner" ||
+              currentMember.role === "admin") ? (
+              <VisibilityMenu
+                visibility={boardVisibility}
+                changeVisibility={handleVisibility}
+              />
+            ) : null}
+          </div>
         </div>
 
         <div className="flex items-center gap-2">
-          <BoardUserMenu user={user} currentMember={currentMember} />
+          <div className="hidden items-center md:flex">
+            <BoardUserMenu user={user} currentMember={currentMember} />
 
-          <Button
-            onClick={() =>
-              onOpen("share-board", {
-                boardId: board.id,
-                currentMember,
-                showTabs: true,
-              })
-            }
-            variant="primary"
-            className="gap-1.5"
-          >
-            <UserPlus2 className="size-4" />
-            Share
-          </Button>
+            <Button
+              onClick={() =>
+                onOpen("share-board", {
+                  boardId: board.id,
+                  currentMember,
+                  showTabs: true,
+                })
+              }
+              variant="primary"
+              className="gap-1.5"
+            >
+              <UserPlus2 className="size-4" />
+              Share
+            </Button>
+          </div>
 
           <Hint label="Board Options" asChild>
             <Button
@@ -211,7 +216,7 @@ export const KanbanNavbar = ({ boardId, user }: KanbanNavbarProps) => {
               size="icon"
               variant="ghost"
             >
-              <Ellipsis />
+              <Ellipsis className="size-8 md:size-6" />
             </Button>
           </Hint>
         </div>
