@@ -1,6 +1,5 @@
 import Link from "next/link"
 
-import { Callout } from "@/components/ui/callout"
 import {
   Card,
   CardContent,
