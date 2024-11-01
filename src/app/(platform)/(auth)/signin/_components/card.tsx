@@ -1,5 +1,6 @@
 import Link from "next/link"
 
+import { Callout } from "@/components/ui/callout"
 import {
   Card,
   CardContent,
@@ -19,6 +20,8 @@ export function SignInCard() {
           <CardDescription>
             Sign in to your account to continue.
           </CardDescription>
+
+          <Callout>This is a demo and resets every hour.</Callout>
         </CardHeader>
         <CardContent>
           <SignInForm />
