@@ -105,7 +105,7 @@ export function FormPicker(form: UseFormReturn<any>) {
                     target="_blank"
                     className="absolute bottom-0 w-full truncate bg-black/50 p-1 text-[10px] text-white opacity-0 hover:underline group-hover:opacity-100"
                   >
-                    {image.user.name}
+                    {image.user.name} on Unsplash
                   </Link>
                 </div>
               ))}
