@@ -1,0 +1,38 @@
+.box {
+  position: relative;
+  transform-style: preserve-3d;
+  transition:
+    transform 0.125s ease-in-out,
+    box-shadow 0.3s ease-in-out;
+}
+
+.box::before {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  background: linear-gradient(-90deg, #a855f7, #3b82f6, #10b981);
+  filter: blur(10px);
+  transform: translate3d(0px, 10px, -1px);
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  background-size: 300% 300%;
+  animation: gradientAnimation 5s ease infinite;
+}
+
+.box-hover::before {
+  opacity: 1;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

@@ -1,0 +1,278 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider     = "mysql"
+    url          = env("DATABASE_URL")
+    relationMode = "prisma"
+}
+
+enum ROLE {
+    USER
+    ADMIN
+}
+
+model User {
+    id String @id @default(cuid())
+
+    displayName   String
+    name          String  @unique
+    firstName     String?
+    lastName      String?
+    email         String  @unique
+    emailVerified Boolean @default(false)
+    password      String
+
+    image String?
+    role  ROLE    @default(USER)
+    bio   String? @db.Text
+
+    sessions             Session[]
+    emailVerification    EmailVerificationRequest[]
+    passwordResetSession PasswordResetSession[]
+
+    teamMember TeamMember[]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model Session {
+    id String @id
+
+    teamId String?
+
+    userId String
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    expiresAt DateTime
+
+    @@index([userId])
+}
+
+model EmailVerificationRequest {
+    id String @id @default(cuid())
+
+    email String @unique
+    code  String
+
+    userId String
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    expiresAt DateTime
+
+    @@index([userId])
+}
+
+model PasswordResetSession {
+    id String @id @default(cuid())
+
+    email         String  @unique
+    emailVerified Boolean @default(false)
+    code          String
+
+    userId String
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    expiresAt DateTime
+
+    @@index([userId])
+}
+
+model Team {
+    id String @id @default(cuid())
+
+    title     String
+    isDefault Boolean @default(false)
+
+    imageId       String
+    imageThumbUrl String @db.Text
+    imageFullUrl  String @db.Text
+    imageLinkHtml String @db.Text
+    imageUsername String @db.Text
+
+    members        TeamMember[]
+    boards         Board[]
+    teamInvitation TeamInvitation[]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+enum TEAMROLE {
+    OWNER
+    ADMIN
+    MEMBER
+}
+
+model TeamMember {
+    id String @id @default(cuid())
+
+    role TEAMROLE @default(MEMBER)
+
+    teamId String
+    team   Team   @relation(fields: [teamId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+    userId String
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@unique([userId, teamId])
+    @@index([teamId])
+    @@index([userId])
+}
+
+model TeamInvitation {
+    id String @id @default(cuid())
+
+    email String
+
+    teamId String
+    team   Team   @relation(fields: [teamId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([teamId])
+}
+
+model Board {
+    id String @id @default(cuid())
+
+    title  String
+    closed Boolean @default(false)
+
+    imageId       String
+    imageThumbUrl String @db.Text
+    imageFullUrl  String @db.Text
+    imageLinkHtml String @db.Text
+    imageUsername String @db.Text
+
+    lists List[]
+
+    teamId String
+    team   Team   @relation(fields: [teamId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([teamId])
+}
+
+model List {
+    id String @id @default(cuid())
+
+    title    String
+    position Int
+
+    cards Card[]
+
+    boardId String
+    board   Board  @relation(fields: [boardId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([boardId])
+}
+
+model Card {
+    id String @id @default(cuid())
+
+    title       String
+    description String? @db.Text
+    position    Int
+
+    listId String
+    list   List   @relation(fields: [listId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([listId])
+}
+
+enum ACTION {
+    CREATE
+    UPDATE
+    DELETE
+}
+
+enum ENTITY_TYPE {
+    BOARD
+    LIST
+    CARD
+}
+
+model AuditLog {
+    id String @id @default(cuid())
+
+    action ACTION
+
+    entityId    String
+    entityTitle String
+    entityType  ENTITY_TYPE
+
+    teamId String
+
+    userId    String
+    username  String
+    userImage String @db.Text
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model TeamLimit {
+    id String @id @default(cuid())
+
+    boardCount Int    @default(0)
+    teamId     String @unique
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([teamId])
+}
+
+model UserLimit {
+    id String @id @default(cuid())
+
+    teamCount Int    @default(0)
+    userId    String @unique
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([userId])
+}
+
+enum PLAN {
+    FREE
+    BASIC
+    PRO
+}
+
+model UserSubscription {
+    id String @id @default(cuid())
+
+    userId String @unique
+    plan   PLAN
+
+    stripeCustomerId       String?   @unique @map(name: "stripe_customer_id")
+    stripeSubscriptionId   String?   @unique @map(name: "stripe_subscription_id")
+    stripePriceId          String?   @map(name: "stripe_price_id")
+    stripeCurrentPeriodEnd DateTime? @map(name: "stripe_current_period_end")
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
