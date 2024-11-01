@@ -7,15 +7,15 @@ export const env = createEnv({
 
     DATABASE_URL: z.string(),
 
-    NEXT_URL: z.string().url(),
-
     RESEND_API_KEY: z.string(),
     EMAIL_USER: z.string(),
 
     STRIPE_API_KEY: z.string(),
     STRIPE_WEBHOOK_SECRET: z.string(),
   },
+
   client: {
+    NEXT_PUBLIC_URL: z.string().url(),
     NEXT_PUBLIC_UNSPLASH_ACCESS_KEY: z.string(),
   },
 
@@ -24,7 +24,7 @@ export const env = createEnv({
 
     DATABASE_URL: process.env.DATABASE_URL,
 
-    NEXT_URL: process.env.NEXT_URL,
+    NEXT_PUBLIC_URL: process.env.NEXT_PUBLIC_URL,
 
     RESEND_API_KEY: process.env.RESEND_API_KEY,
     EMAIL_USER: process.env.EMAIL_USER,
