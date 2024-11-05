@@ -2,28 +2,26 @@
 
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
-import { Interval } from "./pricing-wrapper"
-
 export function PricingSwitch({
-  interval,
-  setInterval,
+  isYearly,
+  setIsYearly,
 }: {
-  interval: Interval
-  setInterval: (interval: Interval) => void
+  isYearly: boolean
+  setIsYearly: (isYearly: boolean) => void
 }) {
   return (
     <Tabs
-      value={interval}
+      value={isYearly.toString()}
       onValueChange={(value) => {
-        setInterval(value as Interval)
+        setIsYearly(value === "true")
       }}
       className="mx-auto w-40"
     >
       <TabsList className="px-2 py-6">
-        <TabsTrigger value="month" className="text-base">
+        <TabsTrigger value="false" className="text-base">
           Monthly
         </TabsTrigger>
-        <TabsTrigger value="year" className="text-base">
+        <TabsTrigger value="true" className="text-base">
           Yearly
         </TabsTrigger>
       </TabsList>

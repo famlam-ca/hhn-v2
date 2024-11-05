@@ -7,7 +7,13 @@ import { toast } from "sonner"
 import { useEventListener } from "usehooks-ts"
 import { z } from "zod"
 
-import { Form, FormControl, FormField, FormItem } from "@/components/ui/form"
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { trpc } from "@/trpc/react"
 import { List } from "@/types"
@@ -96,7 +102,7 @@ export default function ListHeader({ list, onAddCard }: ListHeaderProps) {
               control={form.control}
               name="listId"
               render={({ field }) => (
-                <FormItem>
+                <FormItem hidden>
                   <FormControl>{field.value}</FormControl>
                 </FormItem>
               )}
@@ -124,6 +130,7 @@ export default function ListHeader({ list, onAddCard }: ListHeaderProps) {
                       className="h-7 truncate border-t-transparent bg-transparent px-[7px] py-1 text-sm font-medium transition hover:border-input focus:border-input focus:bg-background"
                     />
                   </FormControl>
+                  <FormMessage />
                 </FormItem>
               )}
             />

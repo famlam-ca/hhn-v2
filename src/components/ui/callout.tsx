@@ -8,7 +8,7 @@ import { Icons } from "@/components/icons"
 const TypeToEmoji = {
   default: "💡",
   error: "🚫",
-  info: <Icons.informationCircle className="mt-1.5" />,
+  info: <Icons.informationCircle className="mt-1" />,
   warning: "⚠️",
 }
 
@@ -59,7 +59,7 @@ export function Callout({
       >
         {emoji}
       </div>
-      <div className="-mb-1 w-full min-w-0 pt-1 leading-7">{children}</div>
+      <div className="-mb-1 w-full min-w-0 pt-0.5 leading-7">{children}</div>
     </div>
   )
 }

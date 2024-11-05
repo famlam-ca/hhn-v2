@@ -15,8 +15,6 @@ import {
 } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
 
-import { Interval } from "./pricing-wrapper"
-
 interface PricingCardProps {
   isYearly?: boolean
   title: string
@@ -27,7 +25,6 @@ interface PricingCardProps {
   actionLabel: string
   popular?: boolean
   exclusive?: boolean
-  interval: Interval
   session: Session | null
 }
 
@@ -41,10 +38,11 @@ export function PricingCard({
   actionLabel,
   popular,
   exclusive,
-  interval,
   session,
 }: PricingCardProps) {
   const router = useRouter()
+
+  const interval = isYearly ? "year" : "month"
 
   return (
     <Card
@@ -65,14 +63,19 @@ export function PricingCard({
         {popular && (
           <div className="absolute right-0 top-0">
             <p className="animate-background-shine rounded-bl-lg bg-white bg-[length:200%_100%] px-2.5 py-1 text-sm text-white transition-colors dark:bg-[linear-gradient(110deg,#fb7185,45%,#fb923c,55%,#fb7185)]">
-              Popular Choice
+              Popular Choice{" "}
             </p>
+            {isYearly && yearlyPrice && monthlyPrice ? (
+              <p className="absolute -bottom-7 right-0 animate-background-shine rounded-bl-lg bg-white bg-[length:200%_100%] px-2.5 py-1 text-sm text-white transition-colors dark:bg-[linear-gradient(110deg,#fb7185,45%,#fb923c,55%,#fb7185)]">
+                Save ${monthlyPrice * 12 - yearlyPrice}
+              </p>
+            ) : null}
           </div>
         )}
 
         <div>
           <CardHeader className="pb-8 pt-4">
-            {isYearly && yearlyPrice && monthlyPrice ? (
+            {isYearly && yearlyPrice && monthlyPrice && !popular ? (
               <div className="flex justify-between">
                 <CardTitle className="text-lg text-zinc-700 dark:text-zinc-300">
                   {title}
@@ -80,10 +83,6 @@ export function PricingCard({
                 <div
                   className={cn(
                     "h-fit rounded-xl bg-zinc-200 px-2.5 py-1 text-sm text-black dark:bg-zinc-800 dark:text-white",
-                    {
-                      "bg-gradient-to-r from-orange-400 to-rose-400 dark:text-black":
-                        popular,
-                    },
                   )}
                 >
                   Save ${monthlyPrice * 12 - yearlyPrice}

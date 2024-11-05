@@ -16,7 +16,6 @@ export async function main() {
       emailVerified: true,
       password,
       image: "https://github.com/placeholder.png",
-      role: "ADMIN",
     },
   })
   const userLimit = await prisma.userLimit.create({

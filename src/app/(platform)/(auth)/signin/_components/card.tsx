@@ -21,7 +21,7 @@ export function SignInCard() {
             Sign in to your account to continue.
           </CardDescription>
 
-          <Callout>This is a demo and resets every hour.</Callout>
+          <Callout type="warning">This demo resets every hour.</Callout>
         </CardHeader>
         <CardContent>
           <SignInForm />

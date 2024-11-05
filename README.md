@@ -3,6 +3,9 @@
 ## Bug Fixes
 
 - [x] Team changes to first user team on reload when a different team is selected
+- [x] Pricing interval is not setting correctly, but localStorage is
+- [ ] On create team, the `team switcher` is not updating
+- [ ] Newly created teams have the same plan as previous team
 
 ## TODO
 
