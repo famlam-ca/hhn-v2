@@ -26,7 +26,7 @@ export function SignUpCard() {
             Already have an account?{" "}
             <Link
               href="/signin"
-              className="font-semibold text-primary underline-offset-2 hover:underline"
+              className="font-semibold text-primary-foreground underline-offset-2 hover:underline"
             >
               Sign In
             </Link>

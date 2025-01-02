@@ -24,8 +24,10 @@ import {
 } from "@/components/ui/popover"
 import { Separator } from "@/components/ui/separator"
 import { Skeleton } from "@/components/ui/skeleton"
+import { useProModal } from "@/hooks/use-pro-modal"
 import { useSelectTeam } from "@/hooks/use-select-team"
 import { useTeamModal } from "@/hooks/use-team-modal"
+import { hasAvailableTeamCount } from "@/lib/user-limit"
 import { cn } from "@/lib/utils"
 import { trpc } from "@/trpc/react"
 
@@ -47,6 +49,7 @@ export function TeamSwitcher({
 }: TeamSwitcherProps) {
   const router = useRouter()
   const teamModal = useTeamModal()
+  const proModal = useProModal()
   const { selectedTeam } = useSelectTeam()
 
   const utils = trpc.useUtils()
@@ -79,6 +82,15 @@ export function TeamSwitcher({
         },
       },
     )
+  }
+
+  const onClick = async () => {
+    const canCreate = await hasAvailableTeamCount()
+    if (canCreate) {
+      teamModal.onOpen()
+    } else {
+      proModal.onOpen()
+    }
   }
 
   useEffect(() => {
@@ -129,7 +141,7 @@ export function TeamSwitcher({
           <div className="flex items-center justify-between">
             <CommandInput placeholder="Search team..." />
             <Button
-              onClick={() => teamModal.onOpen()}
+              onClick={onClick}
               size="icon"
               variant="transparent"
               className="ml-auto hover:opacity-80"
@@ -191,7 +203,7 @@ export function TeamSwitcher({
           disabled={teams.length === 1 || isPending}
           loading={isPending}
           variant="transparent"
-          className="w-full justify-start text-alert hover:text-alert/80"
+          className="w-full justify-start text-alert-foreground hover:text-alert-foreground/80"
           onClick={handleLeaveTeam}
         >
           <LogOut

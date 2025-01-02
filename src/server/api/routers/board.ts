@@ -1,5 +1,3 @@
-import { ACTION, ENTITY_TYPE } from "@prisma/client"
-
 import { createAuditLog } from "@/lib/create-audit-log"
 import {
   decrementAvailableBoardCount,
@@ -67,8 +65,8 @@ export const boardRouter = createTRPCRouter({
         teamId: teamId,
         entityId: board.id,
         entityTitle: board.title,
-        entityType: ENTITY_TYPE.BOARD,
-        action: ACTION.CREATE,
+        entityType: "BOARD",
+        action: "CREATE",
       })
 
       return board ?? null
@@ -94,8 +92,8 @@ export const boardRouter = createTRPCRouter({
         teamId: board.teamId,
         entityId: board.id,
         entityTitle: board.title,
-        entityType: ENTITY_TYPE.BOARD,
-        action: ACTION.UPDATE,
+        entityType: "BOARD",
+        action: "UPDATE",
       })
 
       return board ?? null
@@ -126,8 +124,8 @@ export const boardRouter = createTRPCRouter({
         teamId: existingBoard.teamId,
         entityId: board.id,
         entityTitle: board.title,
-        entityType: ENTITY_TYPE.BOARD,
-        action: ACTION.DELETE,
+        entityType: "BOARD",
+        action: "DELETE",
       })
 
       return board ?? null

@@ -1,8 +1,8 @@
-import { PLAN } from "@prisma/client"
 import { type Metadata } from "next"
 import { redirect } from "next/navigation"
 
 import { getSession } from "@/server/session"
+import { INTERVAL, PLAN } from "@/types"
 
 import { SignUpCard } from "./_components/card"
 import { Header } from "./_components/header"
@@ -17,7 +17,10 @@ export const metadata: Metadata = {
 export default async function SignUpPage({
   searchParams,
 }: {
-  searchParams: Promise<{ plan?: PLAN; interval?: "month" | "year" }>
+  searchParams: Promise<{
+    plan?: PLAN
+    interval?: INTERVAL
+  }>
 }) {
   const { plan, interval } = await searchParams
   const { session, user } = await getSession()

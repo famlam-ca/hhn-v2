@@ -1,11 +1,11 @@
 "use client"
 
 import { CreditCard } from "lucide-react"
-import { PLAN } from "@prisma/client"
 import Image from "next/image"
 
 import { Skeleton } from "@/components/ui/skeleton"
 import { trpc } from "@/trpc/react"
+import { PLAN } from "@/types"
 
 interface InfoProps {
   teamId: string
@@ -39,7 +39,7 @@ export function Info({ teamId, plan }: InfoProps) {
         <p className="text-xl font-semibold">{team.title}</p>
         <div className="flex items-center text-xs text-muted-foreground">
           <CreditCard className="mr-1 size-3" />
-          {plan === PLAN.PRO ? "Pro" : plan === PLAN.BASIC ? "Basic" : "Free"}
+          {plan === "PRO" ? "Pro" : plan === "BASIC" ? "Basic" : "Free"}
         </div>
       </div>
     </div>

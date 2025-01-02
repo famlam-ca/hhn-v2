@@ -1,6 +1,6 @@
 "use client"
 
-import { PLAN, Team } from "@prisma/client"
+import { Team } from "@prisma/client"
 import { Plus } from "lucide-react"
 import { useParams } from "next/navigation"
 import { useLocalStorage } from "usehooks-ts"
@@ -16,9 +16,12 @@ import {
   MAX_FREE_TEAMS,
   MAX_PRO_TEAMS,
 } from "@/constants/teams"
+import { useProModal } from "@/hooks/use-pro-modal"
 import { useSelectTeam } from "@/hooks/use-select-team"
 import { useTeamModal } from "@/hooks/use-team-modal"
+import { hasAvailableTeamCount } from "@/lib/user-limit"
 import { trpc } from "@/trpc/react"
+import { PLAN } from "@/types"
 
 import { NavItem } from "./nav-item"
 
@@ -34,6 +37,7 @@ export function Sidebar({
   sessionId: string
 }) {
   const teamModal = useTeamModal()
+  const proModal = useProModal()
   const { teamId } = useParams()
   const { setSelectedTeam } = useSelectTeam()
 
@@ -62,8 +66,13 @@ export function Sidebar({
     }))
   }
 
-  const onClick = () => {
-    teamModal.onOpen()
+  const onClick = async () => {
+    const canCreate = await hasAvailableTeamCount()
+    if (canCreate) {
+      teamModal.onOpen()
+    } else {
+      proModal.onOpen()
+    }
   }
 
   const handleSelectTeam = (team: Team) => {
@@ -84,9 +93,9 @@ export function Sidebar({
         <span className="pl-4 pr-2">Workspaces</span>
         <Badge variant="outline">
           <span className="text-xs">
-            {plan === PLAN.PRO
+            {plan === "PRO"
               ? `${MAX_PRO_TEAMS - availableCount} / ${MAX_PRO_TEAMS}`
-              : plan === PLAN.BASIC
+              : plan === "BASIC"
                 ? `${MAX_BASIC_TEAMS - availableCount} / ${MAX_BASIC_TEAMS}`
                 : `${MAX_FREE_TEAMS - availableCount} / ${MAX_FREE_TEAMS}`}
           </span>

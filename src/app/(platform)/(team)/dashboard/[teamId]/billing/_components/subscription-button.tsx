@@ -1,11 +1,11 @@
 "use client"
 
-import { PLAN } from "@prisma/client"
 import { toast } from "sonner"
 
 import { stripeRedirect } from "@/actions/stripe-redirect"
 import { Button } from "@/components/ui/button"
 import { useProModal } from "@/hooks/use-pro-modal"
+import { PLAN } from "@/types"
 
 interface SubscriptionButtonProps {
   plan: PLAN
@@ -15,7 +15,7 @@ export function SubscriptionButton({ plan }: SubscriptionButtonProps) {
   const proModal = useProModal()
 
   const onSubmit = async () => {
-    if (plan === PLAN.PRO || plan === PLAN.BASIC) {
+    if (plan === "PRO" || plan === "BASIC") {
       const res = await stripeRedirect()
       if (!res.success) {
         toast.error(res.message)
@@ -33,9 +33,7 @@ export function SubscriptionButton({ plan }: SubscriptionButtonProps) {
 
   return (
     <Button onClick={onSubmit}>
-      {plan === PLAN.PRO || plan === PLAN.BASIC
-        ? "Manage subscription"
-        : "Upgrade"}
+      {plan === "PRO" || plan === "BASIC" ? "Manage subscription" : "Upgrade"}
     </Button>
   )
 }

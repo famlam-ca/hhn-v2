@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { ChevronLeft, Eye, EyeOff } from "lucide-react"
+import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
@@ -23,6 +24,8 @@ import { signUp } from "../actions"
 import { SignUpSchema1, SignUpSchema2 } from "../schema"
 
 export function SignUpForm() {
+  const router = useRouter()
+
   const [step, setStep] = useState<number>(1)
   const [step1Values, setStep1Values] = useState<
     Partial<z.infer<typeof SignUpSchema1>>
@@ -70,6 +73,8 @@ export function SignUpForm() {
             onClick: () => window.location.assign("/signin"),
           },
         })
+      } else {
+        router.push("/verify-email")
       }
     }
   }

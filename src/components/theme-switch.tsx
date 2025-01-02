@@ -89,7 +89,7 @@ export function ThemeSwitch({
             )}
           >
             <div className="flex items-center gap-4">
-              <IconToUse />
+              <IconToUse className="size-5" />
               <span className="capitalize">
                 {
                   Object.entries(themeMapping).find(

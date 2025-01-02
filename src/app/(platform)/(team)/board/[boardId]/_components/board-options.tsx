@@ -64,7 +64,7 @@ export default function BoardOptions({ boardId }: BoardOptionsProps) {
           loading={isPending}
           onClick={() => onDelete({ boardId })}
           variant="ghost"
-          className="h-auto w-full justify-start rounded-none p-2 px-5 text-sm font-normal text-alert"
+          className="h-auto w-full justify-start rounded-none p-2 px-5 text-sm font-normal text-alert-foreground"
         >
           <Trash2 /> Delete this board
         </LoadingButton>

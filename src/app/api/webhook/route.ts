@@ -1,10 +1,10 @@
-import { PLAN } from "@prisma/client"
 import { headers } from "next/headers"
 import { NextResponse } from "next/server"
 import Stripe from "stripe"
 
 import { stripe } from "@/lib/stripe"
 import { db } from "@/server/db"
+import { PLAN } from "@/types"
 
 export async function POST(req: Request) {
   const body = await req.text()

@@ -10,7 +10,7 @@ export function VPSFeatures() {
       <div className="container mx-auto px-4">
         <div className="flex flex-col items-center md:flex-row">
           <div className="mb-8 md:mb-0 md:w-1/2">
-            <AiOutlineCloudServer className="mx-auto size-48 text-primary" />
+            <AiOutlineCloudServer className="mx-auto size-48 text-primary-foreground" />
           </div>
           <div className="md:w-1/2">
             <h2 className="mb-4 text-3xl font-bold">

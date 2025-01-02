@@ -1,5 +1,3 @@
-import { ENTITY_TYPE } from "@prisma/client"
-
 import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc"
 import { GetAuditLogsByCardIdSchema } from "@/validators/auditlog"
 
@@ -11,7 +9,7 @@ export const auditLogsRouter = createTRPCRouter({
         where: {
           teamId: input.teamId,
           entityId: input.cardId,
-          entityType: ENTITY_TYPE.CARD,
+          entityType: "CARD",
         },
         orderBy: {
           createdAt: "desc",

@@ -1,8 +1,8 @@
-import { PLAN } from "@prisma/client"
 import { redirect } from "next/navigation"
 
 import { getUserEmailVerificationRequestFromRequest } from "@/server/email-verification"
 import { getSession } from "@/server/session"
+import { INTERVAL, PLAN } from "@/types"
 
 import { VerifyEmailCard } from "./_components/card"
 import { Header } from "./_components/header"
@@ -10,7 +10,7 @@ import { Header } from "./_components/header"
 export default async function VerifyEmailPage({
   searchParams,
 }: {
-  searchParams: Promise<{ plan?: PLAN; interval?: "month" | "year" }>
+  searchParams: Promise<{ plan?: PLAN; interval?: INTERVAL }>
 }) {
   const { plan, interval } = await searchParams
   const { user } = await getSession()

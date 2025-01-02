@@ -56,7 +56,7 @@ export function FormPicker(form: UseFormReturn<any>) {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center p-6">
-        <Loader2 className="h-6 w-6 animate-spin text-primary" />
+        <Loader2 className="h-6 w-6 animate-spin text-primary-foreground" />
       </div>
     )
   }
@@ -101,7 +101,7 @@ export function FormPicker(form: UseFormReturn<any>) {
                     </div>
                   )}
                   <Link
-                    href={image.links.html}
+                    href={image.user.links.html}
                     target="_blank"
                     className="absolute bottom-0 w-full truncate bg-black/50 p-1 text-[10px] text-white opacity-0 hover:underline group-hover:opacity-100"
                   >

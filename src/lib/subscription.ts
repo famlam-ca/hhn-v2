@@ -1,7 +1,6 @@
-import { PLAN } from "@prisma/client"
-
 import { db } from "@/server/db"
 import { getSession } from "@/server/session"
+import { PLAN } from "@/types"
 
 const DAY_IN_MS = 86_400_000
 
@@ -11,7 +10,7 @@ export async function checkSubscription(): Promise<{
 }> {
   const { session, user } = await getSession()
   if (session === null) {
-    return { isValid: false, plan: PLAN.FREE }
+    return { isValid: false, plan: "FREE" }
   }
 
   const orgSubscription = await db.userSubscription.findUnique({
@@ -25,7 +24,7 @@ export async function checkSubscription(): Promise<{
     },
   })
   if (!orgSubscription) {
-    return { isValid: false, plan: PLAN.FREE }
+    return { isValid: false, plan: "FREE" }
   }
 
   /* eslint-disable  @typescript-eslint/no-non-null-asserted-optional-chain */
@@ -35,6 +34,6 @@ export async function checkSubscription(): Promise<{
 
   return {
     isValid: !!isValid,
-    plan: orgSubscription.plan,
+    plan: orgSubscription.plan as PLAN,
   }
 }

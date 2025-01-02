@@ -69,21 +69,21 @@ export function UserButton({ user }: UserButtonProps) {
           </DropdownMenuLabel>
 
           <DropdownMenuItem asChild>
-            <Link href={`/u/${user.name}/profile`}>
+            <Link href={`/u/${user.name}/profile`} className="cursor-pointer">
               <UserCircle className="mr-2 size-5" />
               Profile
             </Link>
           </DropdownMenuItem>
 
           <DropdownMenuItem asChild>
-            <Link href={`/u/${user.name}/account`}>
+            <Link href={`/u/${user.name}/account`} className="cursor-pointer">
               <UserIcon className="mr-2 size-5" />
               Account
             </Link>
           </DropdownMenuItem>
 
           <DropdownMenuItem asChild>
-            <Link href={`/u/${user.name}/settings`}>
+            <Link href={`/u/${user.name}/settings`} className="cursor-pointer">
               <Settings className="mr-2 size-5" />
               Settings
             </Link>
@@ -99,7 +99,11 @@ export function UserButton({ user }: UserButtonProps) {
 
           {/* TODO: Change link */}
           <DropdownMenuItem asChild>
-            <Link href="https://lasse.famlam.ca#contact" target="_blank">
+            <Link
+              href="https://lasse.famlam.ca#contact"
+              target="_blank"
+              className="cursor-pointer"
+            >
               <LifeBuoy className="mr-2 size-5" />
               Support
             </Link>
@@ -107,7 +111,11 @@ export function UserButton({ user }: UserButtonProps) {
 
           {/* TODO: Change link */}
           <DropdownMenuItem asChild>
-            <Link href="https://lasse.famlam.ca#contact" target="_blank">
+            <Link
+              href="https://lasse.famlam.ca#contact"
+              target="_blank"
+              className="cursor-pointer"
+            >
               <Phone className="mr-2 size-5" />
               Contact
             </Link>
@@ -122,7 +130,11 @@ export function UserButton({ user }: UserButtonProps) {
           </DropdownMenuLabel>
 
           <DropdownMenuItem asChild>
-            <Link href="https://docs.famlam.ca" target="_blank">
+            <Link
+              href="https://docs.famlam.ca"
+              target="_blank"
+              className="cursor-pointer"
+            >
               <Newspaper className="mr-2 size-5" />
               Docs
             </Link>
@@ -130,7 +142,7 @@ export function UserButton({ user }: UserButtonProps) {
 
           {/* TODO: Create api docs */}
           <DropdownMenuItem disabled={user.role !== "ADMIN"} asChild>
-            <Link href="https://docs.famlam.ca/api">
+            <Link href="https://docs.famlam.ca/api" className="cursor-pointer">
               <CloudCog className="mr-2 size-5" />
               API
             </Link>
@@ -148,7 +160,7 @@ export function UserButton({ user }: UserButtonProps) {
 
               {/* TODO: Create admin page */}
               <DropdownMenuItem disabled asChild>
-                <Link href="/admin">
+                <Link href="/admin" className="cursor-pointer">
                   <UserCog className="mr-2 size-5" />
                   Admin
                 </Link>
@@ -160,7 +172,10 @@ export function UserButton({ user }: UserButtonProps) {
         )}
 
         <DropdownMenuItem asChild>
-          <SignOutButton variant="ghost" className="w-full justify-start">
+          <SignOutButton
+            variant="ghost"
+            className="w-full cursor-pointer justify-start"
+          >
             <LogOut className="mr-2 size-5" />
             Sign Out
           </SignOutButton>

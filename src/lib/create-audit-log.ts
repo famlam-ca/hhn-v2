@@ -1,7 +1,6 @@
-import { ACTION, ENTITY_TYPE } from "@prisma/client"
-
 import { db } from "@/server/db"
 import { getSession } from "@/server/session"
+import { ACTION, ENTITY_TYPE } from "@/types"
 
 interface Props {
   teamId: string

@@ -1,5 +1,3 @@
-import { ACTION, ENTITY_TYPE } from "@prisma/client"
-
 import { createAuditLog } from "@/lib/create-audit-log"
 import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc"
 import { List } from "@/types"
@@ -48,8 +46,8 @@ export const listRouter = createTRPCRouter({
         teamId: board.teamId,
         entityId: list.id,
         entityTitle: list.title,
-        entityType: ENTITY_TYPE.LIST,
-        action: ACTION.CREATE,
+        entityType: "LIST",
+        action: "CREATE",
       })
 
       return (list as List) ?? null
@@ -114,8 +112,8 @@ export const listRouter = createTRPCRouter({
         teamId: list.board.teamId,
         entityId: list.id,
         entityTitle: list.title,
-        entityType: ENTITY_TYPE.LIST,
-        action: ACTION.UPDATE,
+        entityType: "LIST",
+        action: "UPDATE",
       })
 
       return (list as List) ?? null
@@ -139,8 +137,8 @@ export const listRouter = createTRPCRouter({
         teamId: list.board.teamId,
         entityId: list.id,
         entityTitle: list.title,
-        entityType: ENTITY_TYPE.LIST,
-        action: ACTION.DELETE,
+        entityType: "LIST",
+        action: "DELETE",
       })
 
       return (list as List) ?? null
@@ -190,8 +188,8 @@ export const listRouter = createTRPCRouter({
         teamId: listToCopy.board.teamId,
         entityId: newList.id,
         entityTitle: newList.title,
-        entityType: ENTITY_TYPE.LIST,
-        action: ACTION.CREATE,
+        entityType: "LIST",
+        action: "CREATE",
       })
 
       return (newList as List) ?? null

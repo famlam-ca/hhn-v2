@@ -1,7 +1,6 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import { PLAN } from "@prisma/client"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { z } from "zod"
@@ -20,6 +19,7 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp"
 import { LoadingButton } from "@/components/ui/loading-button"
+import { INTERVAL, PLAN } from "@/types"
 
 import { resendEmailVerificationCode, verifyEmail } from "../actions"
 import { VerifyEmailSchema } from "../schema"
@@ -29,7 +29,7 @@ export function VerifyEmailForm({
   interval,
 }: {
   plan?: PLAN
-  interval?: "month" | "year"
+  interval?: INTERVAL
 }) {
   const form = useForm<z.infer<typeof VerifyEmailSchema>>({
     resolver: zodResolver(VerifyEmailSchema),

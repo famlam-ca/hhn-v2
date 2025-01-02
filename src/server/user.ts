@@ -101,7 +101,7 @@ export async function createFirstUserTeam(userId: string): Promise<Team> {
     },
   })
 
-  await incrementAvailableTeamCount()
+  await incrementAvailableTeamCount({ userId })
 
   return team
 }

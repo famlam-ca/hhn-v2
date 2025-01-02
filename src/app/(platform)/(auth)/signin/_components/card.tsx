@@ -29,7 +29,7 @@ export function SignInCard() {
             Don&apos;t have an account?{" "}
             <Link
               href="/signup"
-              className="font-semibold text-primary underline-offset-2 hover:underline"
+              className="font-semibold text-primary-foreground underline-offset-2 hover:underline"
             >
               Sign Up
             </Link>

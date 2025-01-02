@@ -1,6 +1,5 @@
 "use client"
 
-import { PLAN } from "@prisma/client"
 import { Menu } from "lucide-react"
 import { usePathname } from "next/navigation"
 import { useEffect } from "react"
@@ -14,6 +13,7 @@ import {
 } from "@/components/ui/sheet"
 import { useMobileSidebar } from "@/hooks/use-mobile-sidebar"
 import { useMounted } from "@/hooks/use-mounted"
+import { PLAN } from "@/types"
 
 import { Sidebar } from "./sidebar"
 

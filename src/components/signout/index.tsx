@@ -21,7 +21,7 @@ export function SignOutButton({
       onClick={signOut}
       size={size}
       variant={variant}
-      className={cn(className)}
+      className={cn("cursor-pointer", className)}
     >
       {children}
     </Button>

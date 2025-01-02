@@ -1,6 +1,5 @@
 "use server"
 
-import { PLAN } from "@prisma/client"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 
@@ -8,7 +7,7 @@ import { stripe } from "@/lib/stripe"
 import { absoluteUrl } from "@/lib/utils"
 import { db } from "@/server/db"
 import { getSession } from "@/server/session"
-import { ActionResult } from "@/types"
+import { ActionResult, INTERVAL, PLAN } from "@/types"
 
 interface StripeRedirectResult extends ActionResult {
   data?: string
@@ -16,11 +15,11 @@ interface StripeRedirectResult extends ActionResult {
 
 interface StripeRedirectProps {
   plan?: PLAN
-  interval?: "month" | "year"
+  interval?: INTERVAL
 }
 
 export async function stripeRedirect({
-  plan = PLAN.FREE,
+  plan = "FREE",
   interval = "month",
 }: StripeRedirectProps = {}): Promise<StripeRedirectResult> {
   const { session, user } = await getSession()
@@ -62,9 +61,9 @@ export async function stripeRedirect({
     } else {
       const lineItems = []
 
-      if (plan === PLAN.FREE) {
+      if (plan === "FREE") {
         redirect(settingsUrl)
-      } else if (plan === PLAN.BASIC) {
+      } else if (plan === "BASIC") {
         lineItems.push({
           price_data: {
             currency: "usd",
@@ -78,7 +77,7 @@ export async function stripeRedirect({
           },
           quantity: 1,
         })
-      } else if (plan === PLAN.PRO) {
+      } else if (plan === "PRO") {
         lineItems.push({
           price_data: {
             currency: "usd",

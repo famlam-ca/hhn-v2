@@ -1,4 +1,3 @@
-import { PLAN } from "@prisma/client"
 import { Ghost, Plus, User } from "lucide-react"
 import { redirect } from "next/navigation"
 
@@ -11,7 +10,7 @@ import {
   MAX_PRO_BOARDS,
 } from "@/constants/boards"
 import { checkSubscription } from "@/lib/subscription"
-import { getAvailableBoardCount } from "@/lib/user-limit"
+import { getAvailableBoardCount, hasAvailableTeamCount } from "@/lib/user-limit"
 import { api } from "@/trpc/server"
 
 import { BoardCard } from "./board-card"
@@ -26,6 +25,8 @@ export async function BoardList({ teamId }: BoardListProps) {
     return redirect("/dashboard")
   }
 
+  const canCreate = await hasAvailableTeamCount()
+
   const boards = await api.board.getBoardsByTeamId({ teamId })
 
   const availableCount = await getAvailableBoardCount(teamId)
@@ -38,9 +39,9 @@ export async function BoardList({ teamId }: BoardListProps) {
         <div className="-mt-1.5 flex flex-col font-semibold">
           <p className="text-lg">Your boards</p>
           <span className="text-xs">
-            {plan === PLAN.PRO
+            {plan === "PRO"
               ? `${MAX_PRO_BOARDS - availableCount} boards remaining`
-              : plan === PLAN.BASIC
+              : plan === "BASIC"
                 ? `${MAX_BASIC_BOARDS - availableCount} boards remaining`
                 : `${MAX_FREE_BOARDS - availableCount} boards remaining`}
           </span>
@@ -49,7 +50,7 @@ export async function BoardList({ teamId }: BoardListProps) {
           <LayoutButtons />
           {boards.length > 0 ? (
             <FormPopover align="center" side="bottom" sideOffset={18}>
-              <Button size="icon">
+              <Button disabled={!canCreate} size="icon">
                 <Plus />
               </Button>
             </FormPopover>

@@ -10,6 +10,7 @@ const TypeToEmoji = {
   error: "🚫",
   info: <Icons.informationCircle className="mt-1" />,
   warning: "⚠️",
+  success: "✅",
 }
 
 type CalloutType = keyof typeof TypeToEmoji
@@ -26,6 +27,9 @@ const classes: Record<CalloutType, string> = {
   ),
   warning: cn(
     "border-yellow-100 bg-yellow-50 text-yellow-900 dark:border-yellow-200/30 dark:bg-yellow-700/30 dark:text-yellow-200",
+  ),
+  success: cn(
+    "border-green-100 bg-green-50 text-green-900 dark:border-green-200/30 dark:bg-green-900/30 dark:text-green-200",
   ),
 }
 

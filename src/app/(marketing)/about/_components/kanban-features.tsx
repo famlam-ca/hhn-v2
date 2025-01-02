@@ -26,7 +26,7 @@ export function KanbanFeatures() {
               className="shadow-xl"
             >
               <CardHeader>
-                <feature.icon className="mb-2 h-10 w-10 text-primary" />
+                <feature.icon className="mb-2 size-10 text-primary-foreground" />
                 <CardTitle>{feature.title}</CardTitle>
               </CardHeader>
               <CardContent>

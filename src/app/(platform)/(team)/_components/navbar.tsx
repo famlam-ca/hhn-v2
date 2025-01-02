@@ -7,13 +7,13 @@ import { Logo } from "@/components/logo"
 import { MaxWidthWrapper } from "@/components/max-width-wrapper"
 import { Button } from "@/components/ui/button"
 import { UserButton } from "@/components/user-button"
+import { checkSubscription } from "@/lib/subscription"
+import { getAvailableTeamCount, hasAvailableTeamCount } from "@/lib/user-limit"
 import { getSession } from "@/server/session"
 import { api, HydrateClient } from "@/trpc/server"
 
 import { MobileSidebar } from "../dashboard/_components/mobile-sidebar"
 import { TeamSwitcher, TeamSwitcherSkeleton } from "./team-switcher"
-import { checkSubscription } from "@/lib/subscription"
-import { getAvailableTeamCount } from "@/lib/user-limit"
 
 export async function Navbar() {
   const { session, user, teamId } = await getSession()
@@ -22,6 +22,7 @@ export async function Navbar() {
   }
   const { plan } = await checkSubscription()
   const availableCount = await getAvailableTeamCount()
+  const canCreate = await hasAvailableTeamCount()
 
   const teams = await api.team.getUserTeams()
 
@@ -41,6 +42,7 @@ export async function Navbar() {
 
           <FormPopover align="start" side="bottom" sideOffset={18}>
             <Button
+              disabled={!canCreate}
               size="sm"
               variant="default"
               className="hidden h-auto rounded-sm px-2 py-1.5 md:flex"
@@ -51,6 +53,7 @@ export async function Navbar() {
           </FormPopover>
           <FormPopover>
             <Button
+              disabled={!canCreate}
               size="sm"
               variant="default"
               className="rounded-sm md:hidden"

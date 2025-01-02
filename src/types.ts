@@ -20,6 +20,7 @@ export type Session = SessionModal & {
 
 export type User = UserModal & {
   teamMember: TeamMember
+  sessions: Session[]
 }
 
 export type Board = BoardModal & {
@@ -45,3 +46,13 @@ export type TeamMember = TeamMemberModal & {
   user: UserModal
   team: Team
 }
+
+export type ROLE = "USER" | "ADMIN"
+
+export type PLAN = "FREE" | "BASIC" | "PRO"
+
+export type INTERVAL = "month" | "year"
+
+export type ACTION = "CREATE" | "UPDATE" | "DELETE"
+
+export type ENTITY_TYPE = "BOARD" | "LIST" | "CARD"

@@ -1,4 +1,4 @@
-import { PLAN } from "@prisma/client"
+"use server"
 
 import {
   MAX_FREE_BOARDS,
@@ -14,18 +14,24 @@ import { db } from "@/server/db"
 import { getSession } from "@/server/session"
 import { checkSubscription } from "@/lib/subscription"
 
-export async function incrementAvailableTeamCount() {
-  const { session, user } = await getSession()
-  if (session === null) {
-    throw new Error("Unauthorized")
+export async function incrementAvailableTeamCount({
+  userId,
+}: {
+  userId: string
+}) {
+  if (userId === null) {
+    const { session } = await getSession()
+    if (session === null) {
+      throw new Error("Unauthorized")
+    }
   }
 
   const userLimit = await db.userLimit.findUnique({
-    where: { userId: user.id },
+    where: { userId },
   })
   if (userLimit) {
     await db.userLimit.update({
-      where: { userId: user.id },
+      where: { userId },
       data: {
         teamCount: userLimit.teamCount + 1,
       },
@@ -33,7 +39,7 @@ export async function incrementAvailableTeamCount() {
   } else {
     await db.userLimit.create({
       data: {
-        userId: user.id,
+        userId,
         teamCount: 1,
       },
     })
@@ -126,9 +132,9 @@ export async function hasAvailableTeamCount() {
 
   const { plan } = await checkSubscription()
   const maxTeams =
-    plan === PLAN.PRO
+    plan === "PRO"
       ? MAX_PRO_TEAMS
-      : plan === PLAN.BASIC
+      : plan === "BASIC"
         ? MAX_BASIC_TEAMS
         : MAX_FREE_TEAMS
 
@@ -150,9 +156,9 @@ export async function hasAvailableBoardCount(teamId: string) {
 
   const { plan } = await checkSubscription()
   const maxBoards =
-    plan === PLAN.PRO
+    plan === "PRO"
       ? MAX_PRO_BOARDS
-      : plan === PLAN.BASIC
+      : plan === "BASIC"
         ? MAX_BASIC_BOARDS
         : MAX_FREE_BOARDS
 
@@ -174,9 +180,9 @@ export async function getAvailableTeamCount() {
 
   const { plan } = await checkSubscription()
   const maxTeams =
-    plan === PLAN.PRO
+    plan === "PRO"
       ? MAX_PRO_TEAMS
-      : plan === PLAN.BASIC
+      : plan === "BASIC"
         ? MAX_BASIC_TEAMS
         : MAX_FREE_TEAMS
 

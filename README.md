@@ -6,6 +6,7 @@
 - [x] Pricing interval is not setting correctly, but localStorage is
 - [ ] On create team, the `team switcher` is not updating
 - [ ] Newly created teams have the same plan as previous team
+  - This is not a bug, and should be reworked
 
 ## TODO
 

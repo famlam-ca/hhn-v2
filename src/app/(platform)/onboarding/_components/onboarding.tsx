@@ -39,7 +39,7 @@ export function Onboarding({ user }: { user: User }) {
           Welcome on{" "}
           <span className="relative py-2">
             board
-            <Icons.underline className="pointer-events-none absolute inset-x-0 -bottom-0 hidden text-primary sm:block" />
+            <Icons.underline className="pointer-events-none absolute inset-x-0 -bottom-0 hidden text-primary-foreground sm:block" />
           </span>
           , {user.displayName}!
         </h1>

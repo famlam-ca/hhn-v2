@@ -77,7 +77,7 @@ export const teamRouter = createTRPCRouter({
 
       await setActiveTeam(team.id, session.id)
 
-      await incrementAvailableTeamCount()
+      await incrementAvailableTeamCount({ userId: ctx.user.id })
 
       return team
     }),

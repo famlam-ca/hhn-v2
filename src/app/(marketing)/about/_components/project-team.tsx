@@ -51,7 +51,7 @@ export function ProjectTeam() {
                           key={link.name}
                           href={link.url}
                           target="_blank"
-                          className="text-sm text-primary underline-offset-2 hover:underline"
+                          className="text-sm text-primary-foreground underline-offset-2 hover:underline"
                         >
                           {link.name}
                         </Link>
@@ -60,7 +60,7 @@ export function ProjectTeam() {
                       <Link
                         href={member.href}
                         target="_blank"
-                        className="text-sm text-primary underline-offset-2 hover:underline"
+                        className="text-sm text-primary-foreground underline-offset-2 hover:underline"
                       >
                         Contact Me!
                       </Link>

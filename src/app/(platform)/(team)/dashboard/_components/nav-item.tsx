@@ -66,7 +66,7 @@ export function NavItem({
         onClick={() => onExpand(team.id)}
         className={cn(
           "flex items-center gap-x-2 rounded-md p-1.5 text-start text-muted-foreground no-underline transition hover:bg-muted-foreground/10 hover:no-underline",
-          isActive && !isExpanded && "bg-primary/10 text-primary",
+          isActive && !isExpanded && "bg-primary-foreground/10 text-primary",
         )}
       >
         <div className="flex items-center gap-x-2">
@@ -97,7 +97,8 @@ export function NavItem({
             variant="ghost"
             className={cn(
               "mb-1 w-full justify-start pl-10 font-normal",
-              pathname === route.href && "bg-primary/10 text-primary",
+              pathname === route.href &&
+                "bg-primary-foreground/10 text-primary",
             )}
           >
             {route.icon}

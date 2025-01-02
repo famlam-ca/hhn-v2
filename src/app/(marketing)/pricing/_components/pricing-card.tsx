@@ -14,6 +14,7 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
+import { INTERVAL } from "@/types"
 
 interface PricingCardProps {
   isYearly?: boolean
@@ -42,7 +43,7 @@ export function PricingCard({
 }: PricingCardProps) {
   const router = useRouter()
 
-  const interval = isYearly ? "year" : "month"
+  const interval: INTERVAL = isYearly ? "year" : "month"
 
   return (
     <Card

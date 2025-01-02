@@ -15,7 +15,6 @@ export const themeMapping: Record<Theme, Theme> = {
 
 export function ThemeProvider({ children }: PropsWithChildren) {
   const { mounted } = useMounted()
-
   if (!mounted) return null
 
   return (

@@ -10,7 +10,7 @@ const FloatingInput = React.forwardRef<
 >(({ className, ...props }, ref) => {
   return (
     <Input
-      placeholder=" "
+      placeholder=""
       className={cn("peer", className)}
       ref={ref}
       {...props}

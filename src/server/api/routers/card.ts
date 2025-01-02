@@ -1,5 +1,3 @@
-import { ACTION, ENTITY_TYPE } from "@prisma/client"
-
 import { createAuditLog } from "@/lib/create-audit-log"
 import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc"
 import { Card } from "@/types"
@@ -55,8 +53,8 @@ export const cardRouter = createTRPCRouter({
         teamId: list.board.teamId,
         entityId: card.id,
         entityTitle: card.title,
-        entityType: ENTITY_TYPE.CARD,
-        action: ACTION.CREATE,
+        entityType: "CARD",
+        action: "CREATE",
       })
 
       return (card as Card) ?? null
@@ -144,8 +142,8 @@ export const cardRouter = createTRPCRouter({
         teamId: card.list.board.teamId,
         entityId: card.id,
         entityTitle: card.title,
-        entityType: ENTITY_TYPE.CARD,
-        action: ACTION.UPDATE,
+        entityType: "CARD",
+        action: "UPDATE",
       })
 
       return card.title
@@ -179,8 +177,8 @@ export const cardRouter = createTRPCRouter({
         teamId: card.list.board.teamId,
         entityId: card.id,
         entityTitle: card.title,
-        entityType: ENTITY_TYPE.CARD,
-        action: ACTION.UPDATE,
+        entityType: "CARD",
+        action: "UPDATE",
       })
 
       return card.description ?? ""
@@ -234,8 +232,8 @@ export const cardRouter = createTRPCRouter({
         teamId: cardToCopy.list.board.teamId,
         entityId: newCard.id,
         entityTitle: newCard.title,
-        entityType: ENTITY_TYPE.CARD,
-        action: ACTION.CREATE,
+        entityType: "CARD",
+        action: "CREATE",
       })
 
       return newCard

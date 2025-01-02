@@ -1,4 +1,3 @@
-import { PLAN } from "@prisma/client"
 import { z } from "zod"
 
 export const VerifyEmailSchema = z.object({
@@ -6,6 +5,6 @@ export const VerifyEmailSchema = z.object({
     invalid_type_error: "Invalid code",
     required_error: "Code is required",
   }),
-  plan: z.nativeEnum(PLAN).optional(),
+  plan: z.enum(["FREE", "BASIC", "PRO"]).optional(),
   interval: z.enum(["month", "year"]).optional(),
 })
