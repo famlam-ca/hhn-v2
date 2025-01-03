@@ -1,3 +1,5 @@
+import { PLAN } from "@prisma/client"
+
 import {
   Card,
   CardContent,
@@ -5,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { INTERVAL, PLAN } from "@/types"
+import { PLAN_INTERVAL } from "@/types"
 
 import { VerifyEmailForm } from "./form"
 
@@ -14,7 +16,7 @@ export function VerifyEmailCard({
   interval,
 }: {
   plan?: PLAN
-  interval?: INTERVAL
+  interval?: PLAN_INTERVAL
 }) {
   return (
     <div className="mx-auto w-full max-w-lg px-4">

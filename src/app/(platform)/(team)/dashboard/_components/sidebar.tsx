@@ -1,6 +1,6 @@
 "use client"
 
-import { Team } from "@prisma/client"
+import { PLAN, Team } from "@prisma/client"
 import { Plus } from "lucide-react"
 import { useParams } from "next/navigation"
 import { useLocalStorage } from "usehooks-ts"
@@ -21,7 +21,6 @@ import { useSelectTeam } from "@/hooks/use-select-team"
 import { useTeamModal } from "@/hooks/use-team-modal"
 import { hasAvailableTeamCount } from "@/lib/user-limit"
 import { trpc } from "@/trpc/react"
-import { PLAN } from "@/types"
 
 import { NavItem } from "./nav-item"
 

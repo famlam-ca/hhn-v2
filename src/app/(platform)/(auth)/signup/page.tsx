@@ -1,8 +1,9 @@
+import { PLAN } from "@prisma/client"
 import { type Metadata } from "next"
 import { redirect } from "next/navigation"
 
 import { getSession } from "@/server/session"
-import { INTERVAL, PLAN } from "@/types"
+import { PLAN_INTERVAL } from "@/types"
 
 import { SignUpCard } from "./_components/card"
 import { Header } from "./_components/header"
@@ -19,7 +20,7 @@ export default async function SignUpPage({
 }: {
   searchParams: Promise<{
     plan?: PLAN
-    interval?: INTERVAL
+    interval?: PLAN_INTERVAL
   }>
 }) {
   const { plan, interval } = await searchParams

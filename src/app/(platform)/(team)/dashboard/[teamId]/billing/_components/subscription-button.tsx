@@ -1,11 +1,11 @@
 "use client"
 
+import { PLAN } from "@prisma/client"
 import { toast } from "sonner"
 
 import { stripeRedirect } from "@/actions/stripe-redirect"
 import { Button } from "@/components/ui/button"
 import { useProModal } from "@/hooks/use-pro-modal"
-import { PLAN } from "@/types"
 
 interface SubscriptionButtonProps {
   plan: PLAN

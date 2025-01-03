@@ -1,11 +1,11 @@
 "use client"
 
+import { PLAN } from "@prisma/client"
 import { CreditCard } from "lucide-react"
 import Image from "next/image"
 
 import { Skeleton } from "@/components/ui/skeleton"
 import { trpc } from "@/trpc/react"
-import { PLAN } from "@/types"
 
 interface InfoProps {
   teamId: string

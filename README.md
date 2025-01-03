@@ -7,6 +7,7 @@
 - [ ] On create team, the `team switcher` is not updating
 - [ ] Newly created teams have the same plan as previous team
   - This is not a bug, and should be reworked
+- [ ] When leaving team the user is not redirected to another team, causing and error
 
 ## TODO
 
@@ -22,7 +23,7 @@
   - [x] CRUD operations for boards
   - [x] CRUD operations for teams
   - [x] CRUD operations for cards
-  - [ ] Real-time updates using WebSockets or similar technology
+  - [ ] Real-time updates using WebSockets
 - [ ] Implement notifications for card updates
   - [ ] Email notifications
   - [ ] In-app notifications

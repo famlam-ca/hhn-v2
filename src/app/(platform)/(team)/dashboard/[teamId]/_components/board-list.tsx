@@ -14,7 +14,6 @@ import { getAvailableBoardCount, hasAvailableTeamCount } from "@/lib/user-limit"
 import { api } from "@/trpc/server"
 
 import { BoardCard } from "./board-card"
-import { LayoutButtons } from "./layout-buttons"
 
 interface BoardListProps {
   teamId: string
@@ -47,7 +46,7 @@ export async function BoardList({ teamId }: BoardListProps) {
           </span>
         </div>
         <div className="ml-auto flex items-center gap-x-4">
-          <LayoutButtons />
+          {/* <LayoutButtons /> TODO: Implement this */}
           {boards.length > 0 ? (
             <FormPopover align="center" side="bottom" sideOffset={18}>
               <Button disabled={!canCreate} size="icon">

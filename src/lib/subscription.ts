@@ -1,6 +1,7 @@
+import { PLAN } from "@prisma/client"
+
 import { db } from "@/server/db"
 import { getSession } from "@/server/session"
-import { PLAN } from "@/types"
 
 const DAY_IN_MS = 86_400_000
 

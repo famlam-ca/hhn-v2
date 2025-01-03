@@ -3,15 +3,15 @@ generator client {
 }
 
 datasource db {
-    provider = "sqlite"
-    url      = env("DATABASE_URL")
-    // relationMode = "prisma"
+    provider     = "postgresql"
+    url          = env("DATABASE_URL")
+    relationMode = "prisma"
 }
 
-// enum ROLE {
-//     USER
-//     ADMIN
-// }
+enum ROLE {
+    USER
+    ADMIN
+}
 
 model User {
     id String @id @default(cuid())
@@ -25,7 +25,7 @@ model User {
     password      String
 
     image String?
-    role  String  @default("USER")
+    role  ROLE    @default(USER)
     bio   String?
 
     sessions             Session[]
@@ -108,16 +108,16 @@ model Team {
     updatedAt DateTime @updatedAt
 }
 
-// enum TEAMROLE {
-//     OWNER
-//     ADMIN
-//     MEMBER
-// }
+enum TEAMROLE {
+    OWNER
+    ADMIN
+    MEMBER
+}
 
 model TeamMember {
     id String @id @default(cuid())
 
-    role String @default("MEMBER")
+    role TEAMROLE @default(MEMBER)
 
     teamId String
     team   Team   @relation(fields: [teamId], references: [id], onDelete: Cascade, onUpdate: Cascade)
@@ -203,26 +203,26 @@ model Card {
     @@index([listId])
 }
 
-// enum ACTION {
-//     CREATE
-//     UPDATE
-//     DELETE
-// }
+enum ACTION {
+    CREATE
+    UPDATE
+    DELETE
+}
 
-// enum ENTITY_TYPE {
-//     BOARD
-//     LIST
-//     CARD
-// }
+enum ENTITY_TYPE {
+    BOARD
+    LIST
+    CARD
+}
 
 model AuditLog {
     id String @id @default(cuid())
 
-    action String
+    action ACTION
 
     entityId    String
     entityTitle String
-    entityType  String
+    entityType  ENTITY_TYPE
 
     teamId String
 
@@ -258,17 +258,23 @@ model UserLimit {
     @@index([userId])
 }
 
-// enum PLAN {
-//     FREE
-//     BASIC
-//     PRO
-// }
+enum PLAN {
+    FREE
+    BASIC
+    PRO
+}
+
+enum PLAN_INTERVAL {
+    month
+    year
+}
 
 model UserSubscription {
     id String @id @default(cuid())
 
     userId String @unique
-    plan   String
+    plan   PLAN
+    // interval PLAN_INTERVAL // TODO: Add interval
 
     stripeCustomerId       String?   @unique @map(name: "stripe_customer_id")
     stripeSubscriptionId   String?   @unique @map(name: "stripe_subscription_id")

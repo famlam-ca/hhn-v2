@@ -1,11 +1,10 @@
 "use server"
 
-import { User } from "@prisma/client"
+import { ROLE, User } from "@prisma/client"
 import { revalidatePath } from "next/cache"
 
 import { ActionResponse } from "@/hooks/use-action"
 import { db } from "@/server/db"
-import { ROLE } from "@/types"
 
 export async function changeUserRole({
   id,

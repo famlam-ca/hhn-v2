@@ -1,5 +1,6 @@
 "use server"
 
+import { PLAN } from "@prisma/client"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 
@@ -7,7 +8,7 @@ import { stripe } from "@/lib/stripe"
 import { absoluteUrl } from "@/lib/utils"
 import { db } from "@/server/db"
 import { getSession } from "@/server/session"
-import { ActionResult, INTERVAL, PLAN } from "@/types"
+import { ActionResult, PLAN_INTERVAL } from "@/types"
 
 interface StripeRedirectResult extends ActionResult {
   data?: string
@@ -15,7 +16,7 @@ interface StripeRedirectResult extends ActionResult {
 
 interface StripeRedirectProps {
   plan?: PLAN
-  interval?: INTERVAL
+  interval?: PLAN_INTERVAL
 }
 
 export async function stripeRedirect({

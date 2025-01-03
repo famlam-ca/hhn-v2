@@ -1,5 +1,6 @@
 "use client"
 
+import { ROLE } from "@prisma/client"
 import { Row } from "@tanstack/react-table"
 import { MoreHorizontal, Trash2 } from "lucide-react"
 import { useRouter } from "next/navigation"
@@ -19,7 +20,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { useAction } from "@/hooks/use-action"
-import { ROLE, User } from "@/types"
+import { User } from "@/types"
 
 import {
   changeUserRole,
