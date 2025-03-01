@@ -11,7 +11,7 @@
 
 ## TODO
 
-### Kanban Board (v2)
+### Kanban Board
 
 - [x] Implement Kanban board model in Prisma schema
   - [x] Define `Board`, `Card`, `List`, `CardStatus`, `CardComment`, `Label`, `BoardMember`, and related models
@@ -29,19 +29,6 @@
   - [ ] In-app notifications
   - [ ] Push notifications
 - [ ] Implement onboarding steps for Kanban board
-
-### VPS Hosting Dashboard (v3)
-
-- [ ] Design VPS hosting dashboard UI
-  - [ ] Overview of hosted servers
-  - [ ] Server management (start, stop, restart)
-  - [ ] Resource monitoring (CPU, RAM, Disk usage)
-- [ ] Implement backend for VPS management
-  - [ ] API endpoints for server management
-  - [ ] Integration with VPS provider's API
-- [ ] Create user authentication and authorization for dashboard access
-  - [ ] Define roles and permissions (admin, user)
-  - [ ] Implement role-based access control
 
 ### General
 
