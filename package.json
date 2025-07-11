@@ -56,7 +56,7 @@
     "input-otp": "^1.2.4",
     "lodash": "^4.17.21",
     "lucide-react": "^0.454.0",
-    "next": "15.0.1",
+    "next": "15.1.2",
     "next-themes": "^0.3.0",
     "onborda": "^1.2.4",
     "react": "19.0.0-rc-69d4b800-20241021",
